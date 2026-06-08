@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KUKAMI - Driver Dashboard</title>
-    <!-- Menggunakan Tailwind CSS untuk UI modern dan cepat -->
+    <title>KUKAMI - Driver Dashboard v3.3</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -42,7 +41,7 @@
         <div class="bg-red-800 text-white p-6 shadow-md rounded-b-3xl">
             <div class="max-w-4xl mx-auto flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-                    <img id="riderFoto" src="https://via.placeholder.com/150" class="w-14 h-14 rounded-full border-2 border-white object-cover shadow">
+                    <img id="riderFoto" src="https://via.placeholder.com/150" class="w-14 h-14 rounded-full border-2 border-white object-cover shadow shadow-black/20">
                     <div>
                         <p class="text-xs text-red-200" id="riderSapaan">Selamat Bekerja,</p>
                         <h2 class="text-xl font-bold" id="riderNama">-</h2>
@@ -70,7 +69,6 @@
 
             <!-- Tab Performa Statistik -->
             <div class="grid grid-cols-2 gap-4">
-                <!-- Hari Ini -->
                 <div class="bg-gradient-to-br from-white to-gray-50 p-4 rounded-2xl shadow-sm border border-gray-100">
                     <p class="text-xs font-bold text-red-800 border-b border-gray-100 pb-1 mb-2">PERFORMA HARI INI</p>
                     <div class="space-y-1 text-sm">
@@ -82,7 +80,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Bulan Ini -->
                 <div class="bg-gradient-to-br from-white to-gray-50 p-4 rounded-2xl shadow-sm border border-gray-100">
                     <p class="text-xs font-bold text-gray-800 border-b border-gray-100 pb-1 mb-2">PERFORMA BULAN INI</p>
                     <div class="space-y-1 text-sm">
@@ -96,14 +93,52 @@
                 </div>
             </div>
 
-            <!-- Riwayat Transaksi Ramping (50 Data Terbaru) -->
+            <!-- ➕ INPUT TRANSAKSI BARU (TARIF DATABASE & MANUAL) -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+                <h4 class="font-bold text-sm text-gray-700 uppercase tracking-wide border-b border-gray-100 pb-2">Input Transaksi Baru</h4>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Tipe Order</label>
+                        <select id="inputTipe" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-800 focus:outline-none">
+                            <option value="ONLINE">ONLINE</option>
+                            <option value="OFFLINE">OFFLINE</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Pilih Layanan / Tarif</label>
+                        <select id="inputTarifPilihan" onchange="pilihTarifDatabase(this)" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-800 focus:outline-none">
+                            <option value="MANUAL">-- INPUT MANUAL --</option>
+                            <!-- List Option diisi otomatis dari Sheet Tarif -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="col-span-2">
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Keterangan / Nama Barang</label>
+                        <input type="text" id="inputKet" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-800 focus:outline-none" placeholder="Masukkan detail orderan">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Harga (Rp)</label>
+                        <input type="number" id="inputNominal" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-800 focus:outline-none" placeholder="0">
+                    </div>
+                </div>
+
+                <input type="hidden" id="inputPotongan" value="0"> <!-- Menyimpan rate potongan secara tersembunyi -->
+
+                <button onclick="simpanTransaksiBaru()" id="btnSimpanTrx" class="w-full bg-green-700 hover:bg-green-800 text-white font-bold p-3 rounded-xl transition shadow-md text-sm tracking-wide">
+                    SIMPAN TRANSAKSI
+                </button>
+            </div>
+
+            <!-- Riwayat Transaksi Ramping -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
                     <h4 class="font-bold text-sm text-gray-700 uppercase tracking-wide">50 Transaksi Terakhir</h4>
                     <span class="text-[11px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full font-medium">Bulan Aktif</span>
                 </div>
                 <div class="divide-y divide-gray-100 max-h-[400px] overflow-y-auto" id="containerRiwayat">
-                    <!-- Data riwayat dirender dinamis di sini -->
                     <p class="p-8 text-center text-sm text-gray-400">Belum ada riwayat transaksi bulan ini.</p>
                 </div>
             </div>
@@ -113,9 +148,9 @@
 
     <!-- SCRIPTS LOGIC -->
     <script>
-        // ⚠️ GANTI DENGAN URL WEB APP ANDA SEHABIS DEPLOY (Tautan berakhiran /exec)
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyjGxOCz4F95T_pUeblJt4nP8DVN4iWaVpXyfrW3ed8-6X-NARfq7cJ3KGkKJ8OSx5alQ/exec"; 
         let CURRENT_RIDER_ID = "";
+        let GLOBAL_TARIF_LIST = []; // Menyimpan master tarif
 
         function prosesLogin() {
             const u = document.getElementById("userId").value.trim();
@@ -169,7 +204,7 @@
                 if(res.status === "success" && res.data) {
                     const d = res.data;
                     
-                    // Render Profile & Dompet
+                    // Render Profil & Dompet
                     document.getElementById("riderNama").innerText = d.nama || "-";
                     document.getElementById("riderSapaan").innerText = (d.sapaan || "Halo") + ", Selamat Bekerja";
                     document.getElementById("riderKelas").innerText = d.kelas || "Standard";
@@ -189,9 +224,85 @@
                     document.getElementById("statBulanRank").innerText = d.stats.bulan.rank_tot || "-";
                     document.getElementById("statBulanNet").innerText = "Rp " + Number(d.stats.bulan.net || 0).toLocaleString('id-ID');
 
-                    // Render List Riwayat Ramping (Tanpa Device Info)
+                    // Simpan list tarif ke global & Render Dropdown opsi tarif
+                    GLOBAL_TARIF_LIST = d.listTarif || [];
+                    populateDropdownTarif(GLOBAL_TARIF_LIST);
+
+                    // Render List Riwayat Ramping
                     renderRiwayat(d.riwayat);
                 }
+            });
+        }
+
+        function populateDropdownTarif(list) {
+            const select = document.getElementById("inputTarifPilihan");
+            select.innerHTML = '<option value="MANUAL">-- INPUT MANUAL --</option>'; // reset
+            list.forEach((t, idx) => {
+                select.innerHTML += `<option value="${idx}">${t.kategori} - ${t.layanan}</option>`;
+            });
+        }
+
+        function pilihTarifDatabase(elem) {
+            const val = elem.value;
+            if(val === "MANUAL") {
+                document.getElementById("inputKet").value = "";
+                document.getElementById("inputNominal").value = "";
+                document.getElementById("inputPotongan").value = "0";
+                document.getElementById("inputKet").disabled = false;
+                document.getElementById("inputNominal").disabled = false;
+            } else {
+                const selected = GLOBAL_TARIF_LIST[parseInt(val)];
+                document.getElementById("inputKet").value = selected.kategori + " (" + selected.layanan + ")";
+                document.getElementById("inputNominal").value = selected.nominal;
+                document.getElementById("inputPotongan").value = selected.potongan || 0;
+                document.getElementById("inputKet").disabled = true; // Kunci biar tidak diubah-ubah
+                document.getElementById("inputNominal").disabled = true;
+            }
+        }
+
+        function simpanTransaksiBaru() {
+            const ket = document.getElementById("inputKet").value.trim();
+            const nom = document.getElementById("inputNominal").value.trim();
+            const tipe = document.getElementById("inputTipe").value;
+            const pot = document.getElementById("inputPotongan").value;
+
+            if(!ket || !nom) return alert("Keterangan dan Nominal tidak boleh kosong!");
+
+            const btn = document.getElementById("btnSimpanTrx");
+            btn.disabled = true;
+            btn.innerText = "Menyimpan Transaksi...";
+
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "simpanTransaksi",
+                    params: {
+                        idRider: CURRENT_RIDER_ID,
+                        tipe: tipe,
+                        items: [{ qty: 1, ket: ket, nominal: Number(nom), potongan: Number(pot) }]
+                    }
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.status === "success" && res.data.status === "success") {
+                    alert("✅ Transaksi Berhasil Disimpan!\nInvoice: " + res.data.nota);
+                    // Reset Form
+                    document.getElementById("inputTarifPilihan").value = "MANUAL";
+                    pilihTarifDatabase(document.getElementById("inputTarifPilihan"));
+                    // Reload Data dashboard terbaru
+                    loadDashboardData();
+                } else {
+                    alert("Gagal menyimpan transaksi.");
+                }
+                btn.disabled = false;
+                btn.innerText = "SIMPAN TRANSAKSI";
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Kesalahan Jaringan.");
+                btn.disabled = false;
+                btn.innerText = "SIMPAN TRANSAKSI";
             });
         }
 
