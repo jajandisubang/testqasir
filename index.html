@@ -1,356 +1,476 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KUKAMI - Driver Dashboard v3.3</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
+/**
+* KUKAMI ENGINE v3.5 - COMPATIBILITY FIX FOR ORIGINAL HTML
+* Pemetaan kolom dan objek disinkronkan total dengan elemen id & fungsi pada index.html Anda
+*/
 
-    <!-- 1. HALAMAN LOGIN -->
-    <div id="loginPage" class="min-h-screen flex items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100">
-            <div class="text-center mb-6">
-                <h1 class="text-3xl font-extrabold text-red-800 tracking-wider">KUKAMI</h1>
-                <p class="text-gray-500 text-sm mt-1">Sistem Driver & Rider Terintegrasi</p>
-            </div>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold uppercase text-gray-500 mb-1">ID RIDER</label>
-                    <input type="text" id="userId" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-800 focus:outline-none" placeholder="Contoh: R-001">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase text-gray-500 mb-1">PASSWORD / PIN</label>
-                    <input type="password" id="userPin" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-800 focus:outline-none" placeholder="******" inputmode="numeric">
-                </div>
-                <button onclick="prosesLogin()" id="btnLogin" class="w-full bg-red-800 hover:bg-red-900 text-white font-bold p-3 rounded-xl transition duration-200 shadow-md">
-                    MASUK KEDASHBOARD
-                </button>
-            </div>
-        </div>
-    </div>
+const SS = SpreadsheetApp.getActiveSpreadsheet();
+const RIDER_SHEET = "DB_DASHBOARD";
 
-    <!-- 2. HALAMAN DASHBOARD UTAMA -->
-    <div id="dashboardPage" class="hidden min-h-screen pb-12">
-        <!-- Header -->
-        <div class="bg-red-800 text-white p-6 shadow-md rounded-b-3xl">
-            <div class="max-w-4xl mx-auto flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <img id="riderFoto" src="https://via.placeholder.com/150" class="w-14 h-14 rounded-full border-2 border-white object-cover shadow shadow-black/20">
-                    <div>
-                        <p class="text-xs text-red-200" id="riderSapaan">Selamat Bekerja,</p>
-                        <h2 class="text-xl font-bold" id="riderNama">-</h2>
-                        <span id="riderKelas" class="inline-block bg-yellow-500 text-red-900 font-extrabold text-[10px] px-2 py-0.5 rounded-md mt-0.5 uppercase shadow-sm">Standard</span>
-                    </div>
-                </div>
-                <button onclick="logout()" class="text-xs bg-red-900/50 hover:bg-red-900 px-3 py-2 rounded-xl border border-red-700 font-medium">Keluar</button>
-            </div>
-        </div>
+function setupDatabase() {
+  const sheetsToCreate = [
+    {
+      name: RIDER_SHEET,
+      headers: [
+        "ID_RIDER", "NAMA_RIDER", "PASSWORD_PIN", "FOTO_PROFIL", "DEVICE_ID_FP", "USER_AGENT",
+        "", "", "", "", "", "", "", "", "", "", 
+        "SALDO", "TRX_ON_HARIAN", "TRX_OFF_HARIAN", "TRX_ON_BULANAN", "TRX_OFF_BULANAN",
+        "KELAS", "REKENING", "SAPAAN", "RANK_TOT_HARIAN", "RANK_ON_HARIAN", "RANK_OFF_HARIAN",
+        "RANK_TOT_BULANAN", "RANK_ON_BULANAN", "RANK_OFF_BULANAN", "", "TOTAL_TRX_HARIAN",
+        "TOTAL_TRX_BULANAN", "", "NET_HARIAN", "NET_BULANAN"
+      ]
+    },
+    {
+      name: "Tarif",
+      headers: ["KATEGORI", "LAYANAN", "NOMINAL", "POTONGAN"]
+    },
+    {
+      name: "DB_RATING",
+      headers: ["TANGGAL", "INVOICE", "ID RIDER", "NAMA RIDER", "RATING", "ULASAN"]
+    },
+    {
+      name: "Query_Temp",
+      headers: []
+    }
+  ];
 
-        <!-- Konten Utama -->
-        <div class="max-w-4xl mx-auto px-4 mt-6 space-y-6">
-            
-            <!-- Dompet Saldo -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center">
-                <div>
-                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Saldo Aktif Rider</p>
-                    <h3 class="text-3xl font-black text-gray-900 mt-1" id="riderSaldo">Rp 0</h3>
-                    <p class="text-[11px] text-gray-400 mt-1" id="riderRekening">No. Rek: -</p>
-                </div>
-                <div class="bg-red-50 p-3 rounded-2xl">
-                    <svg class="w-8 h-8 text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-            </div>
+  sheetsToCreate.forEach(function(item) {
+    let sheet = SS.getSheetByName(item.name);
+    if (!sheet) {
+      sheet = SS.insertSheet(item.name);
+    } else {
+      sheet.clear(); 
+    }
+    
+    if (item.headers.length > 0) {
+      sheet.getRange(1, 1, 1, item.headers.length).setValues([item.headers]);
+      sheet.getRange(1, 1, 1, item.headers.length)
+           .setBackground("#800000")
+           .setFontColor("#FFFFFF")
+           .setFontWeight("bold")
+           .setHorizontalAlignment("center");
+      sheet.setFrozenRows(1);
+    }
+  });
 
-            <!-- Tab Performa Statistik -->
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-gradient-to-br from-white to-gray-50 p-4 rounded-2xl shadow-sm border border-gray-100">
-                    <p class="text-xs font-bold text-red-800 border-b border-gray-100 pb-1 mb-2">PERFORMA HARI INI</p>
-                    <div class="space-y-1 text-sm">
-                        <div class="flex justify-between"><span>Online (Trx):</span><b id="statHariOn">0</b></div>
-                        <div class="flex justify-between"><span>Offline (Trx):</span><b id="statHariOff">0</b></div>
-                        <div class="flex justify-between text-xs text-gray-500"><span>Rank Total:</span><b id="statHariRank">-</b></div>
-                        <div class="flex justify-between border-t border-dashed border-gray-200 pt-1 mt-1 font-bold text-gray-900">
-                            <span>Net Pndptn:</span><span id="statHariNet">Rp 0</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gradient-to-br from-white to-gray-50 p-4 rounded-2xl shadow-sm border border-gray-100">
-                    <p class="text-xs font-bold text-gray-800 border-b border-gray-100 pb-1 mb-2">PERFORMA BULAN INI</p>
-                    <div class="space-y-1 text-sm">
-                        <div class="flex justify-between"><span>Online (Trx):</span><b id="statBulanOn">0</b></div>
-                        <div class="flex justify-between"><span>Offline (Trx):</span><b id="statBulanOff">0</b></div>
-                        <div class="flex justify-between text-xs text-gray-500"><span>Rank Total:</span><b id="statBulanRank">-</b></div>
-                        <div class="flex justify-between border-t border-dashed border-gray-200 pt-1 mt-1 font-bold text-gray-900">
-                            <span>Net Pndptn:</span><span id="statBulanNet">Rp 0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  getMonthlyLogSheet();
+  SpreadsheetApp.getUi().alert("🎉 SETUP BERHASIL!\nDatabase siap digunakan bersama file HTML asli Anda.");
+}
 
-            <!-- ➕ INPUT TRANSAKSI BARU (TARIF DATABASE & MANUAL) -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-                <h4 class="font-bold text-sm text-gray-700 uppercase tracking-wide border-b border-gray-100 pb-2">Input Transaksi Baru</h4>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Tipe Order</label>
-                        <select id="inputTipe" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-800 focus:outline-none">
-                            <option value="ONLINE">ONLINE</option>
-                            <option value="OFFLINE">OFFLINE</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Pilih Layanan / Tarif</label>
-                        <select id="inputTarifPilihan" onchange="pilihTarifDatabase(this)" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-800 focus:outline-none">
-                            <option value="MANUAL">-- INPUT MANUAL --</option>
-                            <!-- List Option diisi otomatis dari Sheet Tarif -->
-                        </select>
-                    </div>
-                </div>
+function doGet(e) {
+  var url = ScriptApp.getService().getUrl();
+  if (e && e.parameter.page === "rating") {
+    var tmp = HtmlService.createTemplateFromFile('Rating');
+    tmp.webAppUrl = url;
+    tmp.inv = e.parameter.inv ? e.parameter.inv : "-";
+    tmp.rider = e.parameter.rider ? e.parameter.rider : "";
+    return tmp.evaluate()
+      .setTitle('KUKAMI - Rating Layanan')
+      .addMetaTag('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  }
 
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="col-span-2">
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Keterangan / Nama Barang</label>
-                        <input type="text" id="inputKet" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-800 focus:outline-none" placeholder="Masukkan detail orderan">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Harga (Rp)</label>
-                        <input type="number" id="inputNominal" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-800 focus:outline-none" placeholder="0">
-                    </div>
-                </div>
+  if (e && e.parameter.action === "approve") {
+    var inv = e.parameter.invoice;
+    var currentFp = e.parameter.fp;
+    var ALDO_FP = "ID-0YGGQSB1N"; 
 
-                <input type="hidden" id="inputPotongan" value="0"> <!-- Menyimpan rate potongan secara tersembunyi -->
+    if (currentFp !== ALDO_FP) {
+      return HtmlService.createHtmlOutput("<h1>⛔ AKSES DITOLAK!</h1>");
+    }
 
-                <button onclick="simpanTransaksiBaru()" id="btnSimpanTrx" class="w-full bg-green-700 hover:bg-green-800 text-white font-bold p-3 rounded-xl transition shadow-md text-sm tracking-wide">
-                    SIMPAN TRANSAKSI
-                </button>
-            </div>
+    var logSheet = getMonthlyLogSheet();
+    var data = logSheet.getDataRange().getValues();
+    var row = data.find(r => r[0] && r[0].toString() === inv);
+    if (!row) return HtmlService.createHtmlOutput("<h1>❌ Transaksi Tidak Ditemukan</h1>");
 
-            <!-- Riwayat Transaksi Ramping -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
-                    <h4 class="font-bold text-sm text-gray-700 uppercase tracking-wide">50 Transaksi Terakhir</h4>
-                    <span class="text-[11px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full font-medium">Bulan Aktif</span>
-                </div>
-                <div class="divide-y divide-gray-100 max-h-[400px] overflow-y-auto" id="containerRiwayat">
-                    <p class="p-8 text-center text-sm text-gray-400">Belum ada riwayat transaksi bulan ini.</p>
-                </div>
-            </div>
+    return HtmlService.createHtmlOutput(
+      '<div style="text-align:center; font-family:sans-serif; padding:20px;">' +
+      '<h1>KONFIRMASI TOP UP</h1>' +
+      '<p>Rider: <b>' + row[3] + '</b></p>' +
+      '<p>Nominal: <b>Rp ' + Number(row[6]).toLocaleString() + '</b></p>' + 
+      '<p>Metode: <b>' + row[4] + '</b></p>' +
+      '<a href="?action=confirm&invoice=' + inv + '&fp=' + currentFp + '" style="background:#28a745; color:white; padding:15px 30px; text-decoration:none; border-radius:10px; font-weight:bold;">SETUJU & APPROVE</a>' +
+      '</div>'
+    );
+  }
 
-        </div>
-    </div>
+  if (e && e.parameter.action === "confirm") {
+    approveTopUpOtomatis(e.parameter.invoice);
+    return HtmlService.createHtmlOutput("<h1>✅ Transaksi #" + e.parameter.invoice + " Berhasil!</h1>");
+  }
 
-    <!-- SCRIPTS LOGIC -->
-    <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyjGxOCz4F95T_pUeblJt4nP8DVN4iWaVpXyfrW3ed8-6X-NARfq7cJ3KGkKJ8OSx5alQ/exec"; 
-        let CURRENT_RIDER_ID = "";
-        let GLOBAL_TARIF_LIST = []; // Menyimpan master tarif
+  var tmp = HtmlService.createTemplateFromFile('Index');
+  tmp.webAppUrl = url;
+  return tmp.evaluate()
+    .setTitle('KUKAMI')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
 
-        function prosesLogin() {
-            const u = document.getElementById("userId").value.trim();
-            const p = document.getElementById("userPin").value.trim();
-            if(!u || !p) return alert("Harap isi ID dan PIN Anda!");
+function getMonthlyLogSheet() {
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const now = new Date();
+  const sheetName = "Log_" + monthNames[now.getMonth()] + "_" + now.getFullYear();
+  let sheet = SS.getSheetByName(sheetName);
+  
+  if (!sheet) {
+    sheet = SS.insertSheet(sheetName);
+    // Struktur Baru: Kolom DEVICE_INFO ditiadakan
+    const headers = ["INVOICE", "TANGGAL", "ID_RIDER", "NAMA_RIDER", "KETERANGAN", "TIPE_TRX", "NOMINAL", "STATUS", "POTONGAN"];
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]).setBackground("#800000").setFontColor("#fff").setFontWeight("bold");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
 
-            const btn = document.getElementById("btnLogin");
-            btn.disabled = true;
-            btn.innerText = "Memverifikasi...";
+function loginRider(u, p, d, t) {
+  const sheet = SS.getSheetByName(RIDER_SHEET);
+  const found = sheet.getRange("A:A").createTextFinder(u.trim()).matchEntireCell(true).findNext();
+  if (!found) return { status: "error", message: "ID tidak ditemukan" };
+  
+  const rIdx = found.getRow();
+  const rowData = sheet.getRange(rIdx, 1, 1, sheet.getLastColumn()).getValues()[0];
+  
+  if (rowData[2].toString().trim() !== p.trim()) {
+    return { status: "error", message: "PIN Salah" };
+  }
+  
+  var savedDeviceId = rowData[4] ? rowData[4].toString().trim() : "";
 
-            fetch(WEB_APP_URL, {
-                method: "POST",
-                body: JSON.stringify({
-                    action: "loginRider",
-                    params: { user: u, pin: p, fp: "DUMMY-FP-123", userAgent: navigator.userAgent }
-                })
-            })
-            .then(res => res.json())
-            .then(res => {
-                if(res.status === "success" && res.data.status === "success") {
-                    CURRENT_RIDER_ID = res.data.rider.id;
-                    document.getElementById("loginPage").classList.add("hidden");
-                    document.getElementById("dashboardPage").classList.remove("hidden");
-                    loadDashboardData();
-                } else {
-                    alert(res.data ? res.data.message : "Gagal terhubung ke sistem.");
-                    btn.disabled = false;
-                    btn.innerText = "MASUK KEDASHBOARD";
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Terjadi kesalahan jaringan.");
-                btn.disabled = false;
-                btn.innerText = "MASUK KEDASHBOARD";
-            });
+  if (savedDeviceId === "" || savedDeviceId === d) {
+    if (savedDeviceId === "") {
+      sheet.getRange(rIdx, 5).setValue(d); 
+      sheet.getRange(rIdx, 6).setValue(t); 
+    }
+    
+    // Pemetaan data statistik yang dikirim kembali ke JavaScript login di index.html
+    var dataStat = {
+      hariIniTrip: rowData[31] || 0,
+      hariIniRank: rowData[24] || "-",
+      hariIniOn: rowData[17] || 0,
+      hariIniRankOn: rowData[25] || "-",
+      hariIniOff: rowData[18] || 0,
+      hariIniRankOff: rowData[26] || "-",
+      bulanIniTrip: rowData[32] || 0,
+      bulanIniRank: rowData[27] || "-",
+      bulanIniOn: rowData[19] || 0,
+      bulanIniRankOn: rowData[28] || "-",
+      bulanIniOff: rowData[20] || 0,
+      bulanIniRankOff: rowData[29] || "-"
+    };
+
+    return {
+      status: "success",
+      rider: { id: rowData[0], nama: rowData[1], rekening: rowData[22] || "" },
+      dataStatistikKukami: dataStat 
+    };
+  } else {
+    return { status: "device_locked" };
+  }
+}
+
+function getDashboardData(id) {
+  const sheet = SS.getSheetByName(RIDER_SHEET);
+  const idStr = id.toString().trim();
+  
+  const found = sheet.getRange("A:A").createTextFinder(idStr).matchEntireCell(true).findNext();
+  if (!found) return null;
+  
+  const rIdx = found.getRow(); 
+  const row = sheet.getRange(rIdx, 1, 1, sheet.getLastColumn()).getValues()[0];
+  
+  const logSheet = getMonthlyLogSheet();
+  const logSheetName = logSheet.getName();
+  
+  let tempSheet = SS.getSheetByName("Query_Temp");
+  if (!tempSheet) tempSheet = SS.insertSheet("Query_Temp");
+  tempSheet.clear();
+  
+  tempSheet.getRange("A1").setFormula(`=QUERY(${logSheetName}!A:I, "WHERE C = '${idStr}' ORDER BY B DESC LIMIT 50", 1)`);
+  SpreadsheetApp.flush(); 
+  
+  const queryResult = tempSheet.getDataRange().getValues();
+  tempSheet.clear(); 
+  
+  // Memetakan struktur array log baru ke nama properti objek yang dicari oleh komponen riwayat index.html
+  const riwayat = queryResult.slice(1).map(r => ({
+    id: r[0],
+    jam: Utilities.formatDate(new Date(r[1]), "GMT+7", "HH.mm") + " WIB",
+    tglDisplay: Utilities.formatDate(new Date(r[1]), "GMT+7", "dd MMM yyyy"),
+    ket: r[4], 
+    device: "Ramping Mode", // Mengisi field device bayangan agar pembacaan objek di HTML Anda tidak menghasilkan Undefined / Error
+    tipe: r[5], 
+    nom: r[6],  
+    status: r[7] ? r[7].toString().trim() : "OK" 
+  }));
+
+  return {
+    kelas: row[21], saldo: row[16], foto: row[3], sapaan: row[23], rekening: row[22] || "",
+    stats: {
+      hari: { total: Number(row[17]) + Number(row[18]), rank_tot: row[24] || "-", on: row[17], off: row[18], rank_on: row[25], rank_off: row[26], net: row[34] || 0 },
+      bulan: { total: Number(row[19]) + Number(row[20]), rank_tot: row[27] || "-", on: row[19], off: row[20], rank_on: row[28], rank_off: row[29], net: row[35] || 0 }
+    },
+    riwayat: riwayat,
+    listTarif: SS.getSheetByName("Tarif").getDataRange().getValues().slice(1)
+                .map(r => ({ kategori: r[0], layanan: r[1], nominal: r[2], potongan: r[3] || 0 }))
+  };
+}
+
+function simpanTransaksi(p) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(5000); 
+  
+  try {
+    const logSheet = getMonthlyLogSheet();
+    const dbSheet = SS.getSheetByName(RIDER_SHEET);
+    const idStr = p.idRider.toString().trim();
+    
+    const foundRider = dbSheet.getRange("A:A").createTextFinder(idStr).matchEntireCell(true).findNext();
+    let namaRider = "Unknown";
+    if (foundRider) {
+      namaRider = dbSheet.getRange(foundRider.getRow(), 2).getValue();
+    }
+    
+    const logData = logSheet.getDataRange().getValues();
+    const totalTrxRider = logData.filter(row => row[2].toString().trim() === idStr).length;
+    const nextSeq = (totalTrxRider + 1).toString().padStart(3, '0');
+    const last3Id = idStr.replace(/\D/g, "").slice(-3).padStart(3, '0');
+    const mm = ("0" + (new Date().getMonth() + 1)).slice(-2);
+    const inv = "KKM-" + last3Id + mm + nextSeq;
+
+    let tot = 0, pot = 0, dsk = [];
+    p.items.forEach(i => {
+      let sub = Number(i.nominal) * Number(i.qty);
+      tot += sub;
+      pot += (sub * (i.potongan || 0));
+      dsk.push(i.qty + "x " + i.ket + "|" + i.nominal);
+    });
+
+    let lastRowReal = 0;
+    for (let i = logData.length - 1; i >= 0; i--) {
+      if (logData[i][0] && logData[i][0].toString().trim() !== "") {
+        lastRowReal = i + 1;
+        break;
+      }
+    }
+    const targetBaris = lastRowReal === 0 ? 2 : lastRowReal + 1;
+    
+    const dataBaru = [
+      inv,            // A: INVOICE
+      new Date(),     // B: TANGGAL
+      p.idRider,      // C: ID_RIDER
+      namaRider,      // D: NAMA_RIDER
+      dsk.join(", "), // E: KETERANGAN
+      p.tipe,         // F: TIPE_TRX
+      tot,            // G: NOMINAL
+      "OK",           // H: STATUS
+      pot             // I: POTONGAN
+    ];
+    
+    logSheet.getRange(targetBaris, 1, 1, dataBaru.length).setValues([dataBaru]);
+
+    return {
+      status: "success", nota: inv, total: tot,
+      waktu: Utilities.formatDate(new Date(), "GMT+7", "HH.mm") + " WIB"
+    };
+  } catch(e) {
+    return { status: "error", message: e.toString() };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function requestTopUp(p) {
+  const logSheet = getMonthlyLogSheet();
+  const dbSheet = SS.getSheetByName(RIDER_SHEET);
+  
+  const foundRider = dbSheet.getRange("A:A").createTextFinder(p.idRider.toString().trim()).matchEntireCell(true).findNext();
+  const namaRider = foundRider ? dbSheet.getRange(foundRider.getRow(), 2).getValue() : "Unknown";
+  
+  const mm = ("0" + (new Date().getMonth() + 1)).slice(-2);
+  const inv = "TOP-" + p.idRider.toString().slice(-3) + mm + Date.now().toString().slice(-4);
+  
+  logSheet.appendRow([inv, new Date(), p.idRider, namaRider, "TOP UP VIA " + p.metode, "TOPUP", p.nominal, "PENDING", 0]);
+  return { status: "success", nota: inv };
+}
+
+function getProfileRiderForRating(idRider) {
+  try {
+    if (!idRider) return null;
+    var sheet = SS.getSheetByName(RIDER_SHEET);
+    var found = sheet.getRange("A:A").createTextFinder(idRider.toString().trim()).matchEntireCell(true).findNext();
+    if (!found) return null;
+    
+    var rIdx = found.getRow();
+    var row = sheet.getRange(rIdx, 1, 1, 6).getValues()[0];
+    
+    var fotoRaw = row[3] ? row[3].toString().trim() : "";
+    if (fotoRaw.indexOf("drive.google.com") !== -1 && fotoRaw.indexOf("id=") === -1) {
+      var idMatch = fotoRaw.match(/[-\w]{25,}/);
+      if (idMatch) fotoRaw = "https://drive.google.com/uc?export=view&id=" + idMatch[0];
+    }
+    
+    return { nama: row[1], foto: fotoRaw, savedFp: row[4] || "" };
+  } catch(e) { return null; }
+}
+
+function simpanUlasanKonsumen(p) {
+  try {
+    let ratingSheet = SS.getSheetByName("DB_RATING");
+    if (!ratingSheet) {
+      ratingSheet = SS.insertSheet("DB_RATING");
+      ratingSheet.appendRow(["TANGGAL", "INVOICE", "ID RIDER", "NAMA RIDER", "RATING", "ULASAN"]);
+      ratingSheet.getRange(1, 1, 1, 6).setFontWeight("bold").setBackground("#800000").setFontColor("#fff");
+    }
+   
+    const dataRating = ratingSheet.getDataRange().getValues();
+    const isDuplicate = dataRating.some(row => row[1].toString().trim() === p.invoice.trim());
+    if (isDuplicate) return "duplicate";
+
+    var profilRider = getProfileRiderForRating(p.riderId);
+    var namaRiderAsli = profilRider ? profilRider.nama : "UNKNOWN RIDER";
+    var tokenFpRider = profilRider ? profilRider.savedFp : "";
+    
+    if (tokenFpRider !== "" && tokenFpRider === p.consumerFp) return "fraud_blocked";
+
+    ratingSheet.appendRow([new Date(), p.invoice, p.riderId, namaRiderAsli, Number(p.rating), p.ulasan]);
+    return "success";
+  } catch(e) { return "error"; }
+}
+
+function ajukanPembatalanStrukRider(idStruk, idRider, alasanRider) {
+  try {
+    if (!idStruk || !idRider || !alasanRider) return { status: "error", message: "Data tidak lengkap!" };
+   
+    var logSheet = getMonthlyLogSheet();
+    var data = logSheet.getDataRange().getValues();
+    var cleanStrukId = idStruk.toString().trim().toLowerCase();
+    var cleanRiderId = idRider.toString().trim().toLowerCase();
+   
+    for (var i = data.length - 1; i >= 1; i--) {
+      var dbStrukId = data[i][0] ? data[i][0].toString().trim().toLowerCase() : "";
+      var dbRiderId = data[i][2] ? data[i][2].toString().trim().toLowerCase() : "";
+      
+      if (dbStrukId === cleanStrukId) {
+        if (dbRiderId !== cleanRiderId) return { status: "error", message: "Akses Ditolak!" };
+        
+        var statusSaatIni = data[i][7] ? data[i][7].toString().trim() : ""; 
+        if (statusSaatIni.indexOf("CANCEL") !== -1) return { status: "error", message: "Struk sudah batal." };
+       
+        var teksStatusBaru = "PENDING CANCEL: " + alasanRider.toString().replace(/"/g, "'");
+        logSheet.getRange(i + 1, 8).setValue(teksStatusBaru); 
+       
+        return { status: "success", message: "Pengajuan pembatalan berhasil dikirim!" };
+      }
+    }
+    return { status: "error", message: "ID Struk tidak ditemukan." };
+  } catch (e) { return { status: "error", message: "Error: " + e.toString() }; }
+}
+
+function onEdit(e) {
+  var range = e.range;
+  var sheet = range.getSheet();
+  var sheetName = sheet.getName();
+  
+  if (sheetName.indexOf("Log_") === 0) {
+    var row = range.getRow();
+    var col = range.getColumn();
+    
+    if (col === 8) { 
+      var valueH = range.getValue().toString().trim().toUpperCase();
+      if (valueH === "CANCELED") {
+        var oldStatusH = e.oldValue ? e.oldValue.toString().trim() : "";
+        var alasanMurni = "";
+        
+        if (oldStatusH.toUpperCase().indexOf("PENDING CANCEL:") !== -1) {
+          alasanMurni = oldStatusH.substring(15).trim();
+        } else if (oldStatusH.toUpperCase().indexOf("PENDING CANCEL") !== -1) {
+          alasanMurni = oldStatusH.substring(14).trim();
+        } else {
+          alasanMurni = oldStatusH;
         }
-
-        function loadDashboardData() {
-            if(!CURRENT_RIDER_ID) return;
-
-            fetch(WEB_APP_URL, {
-                method: "POST",
-                body: JSON.stringify({
-                    action: "getDashboardData",
-                    params: { id: CURRENT_RIDER_ID }
-                })
-            })
-            .then(res => res.json())
-            .then(res => {
-                if(res.status === "success" && res.data) {
-                    const d = res.data;
-                    
-                    // Render Profil & Dompet
-                    document.getElementById("riderNama").innerText = d.nama || "-";
-                    document.getElementById("riderSapaan").innerText = (d.sapaan || "Halo") + ", Selamat Bekerja";
-                    document.getElementById("riderKelas").innerText = d.kelas || "Standard";
-                    document.getElementById("riderSaldo").innerText = "Rp " + Number(d.saldo || 0).toLocaleString('id-ID');
-                    document.getElementById("riderRekening").innerText = "No. Rek: " + (d.rekening || "-");
-                    if(d.foto) document.getElementById("riderFoto").src = d.foto;
-
-                    // Render Stats Hari Ini
-                    document.getElementById("statHariOn").innerText = d.stats.hari.on || 0;
-                    document.getElementById("statHariOff").innerText = d.stats.hari.off || 0;
-                    document.getElementById("statHariRank").innerText = d.stats.hari.rank_tot || "-";
-                    document.getElementById("statHariNet").innerText = "Rp " + Number(d.stats.hari.net || 0).toLocaleString('id-ID');
-
-                    // Render Stats Bulan Ini
-                    document.getElementById("statBulanOn").innerText = d.stats.bulan.on || 0;
-                    document.getElementById("statBulanOff").innerText = d.stats.bulan.off || 0;
-                    document.getElementById("statBulanRank").innerText = d.stats.bulan.rank_tot || "-";
-                    document.getElementById("statBulanNet").innerText = "Rp " + Number(d.stats.bulan.net || 0).toLocaleString('id-ID');
-
-                    // Simpan list tarif ke global & Render Dropdown opsi tarif
-                    GLOBAL_TARIF_LIST = d.listTarif || [];
-                    populateDropdownTarif(GLOBAL_TARIF_LIST);
-
-                    // Render List Riwayat Ramping
-                    renderRiwayat(d.riwayat);
-                }
-            });
+        
+        if (alasanMurni === "" || alasanMurni.toUpperCase() === "CANCELED") alasanMurni = "STRUK DIBATALKAN ADMIN";
+        
+        var cellF = sheet.getRange(row, 6);
+        var currentF = cellF.getValue().toString().trim().toUpperCase();
+        
+        if (currentF === "ONLINE" || currentF === "OFFLINE" || currentF === "HP ADMIN") {
+          cellF.setValue(alasanMurni.toUpperCase());
+          var cellI = sheet.getRange(row, 9);
+          cellI.setValue(0); 
         }
+      }
+    }
+  }
+}
 
-        function populateDropdownTarif(list) {
-            const select = document.getElementById("inputTarifPilihan");
-            select.innerHTML = '<option value="MANUAL">-- INPUT MANUAL --</option>'; // reset
-            list.forEach((t, idx) => {
-                select.innerHTML += `<option value="${idx}">${t.kategori} - ${t.layanan}</option>`;
-            });
-        }
+function doPost(e) {
+  try {
+    var request = JSON.parse(e.postData.contents);
+    var action = request.action;   
+    var params = request.params;
+    var responseData = "";
+    
+    if (action === "loginRider") responseData = loginRider(params.user, params.pin, params.fp, params.userAgent);
+    else if (action === "getDashboardData") responseData = getDashboardData(params.id);
+    else if (action === "simpanTransaksi") responseData = simpanTransaksi(params);
+    else if (action === "ajukanPembatalanStrukRider") responseData = ajukanPembatalanStrukRider(params.idStruk, params.idRider, params.alasan);
+    else if (action === "requestTopUp") responseData = requestTopUp(params);
+    else if (action === "getProfileRiderForRating") responseData = getProfileRiderForRating(params.riderId);
+    else if (action === "simpanUlasanKonsumen") responseData = simpanUlasanKonsumen(params);
+    else if (action === "getRiwayatData") responseData = getRiwayatData(params);
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", data: responseData }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
 
-        function pilihTarifDatabase(elem) {
-            const val = elem.value;
-            if(val === "MANUAL") {
-                document.getElementById("inputKet").value = "";
-                document.getElementById("inputNominal").value = "";
-                document.getElementById("inputPotongan").value = "0";
-                document.getElementById("inputKet").disabled = false;
-                document.getElementById("inputNominal").disabled = false;
-            } else {
-                const selected = GLOBAL_TARIF_LIST[parseInt(val)];
-                document.getElementById("inputKet").value = selected.kategori + " (" + selected.layanan + ")";
-                document.getElementById("inputNominal").value = selected.nominal;
-                document.getElementById("inputPotongan").value = selected.potongan || 0;
-                document.getElementById("inputKet").disabled = true; // Kunci biar tidak diubah-ubah
-                document.getElementById("inputNominal").disabled = true;
-            }
-        }
+function approveTopUpOtomatis(invoice) {
+  const logSheet = getMonthlyLogSheet();
+  const data = logSheet.getDataRange().getValues();
+  for (let i = 0; i < data.length; i++) {
+    if (data[i][0] && data[i][0].toString() === invoice) {
+      logSheet.getRange(i + 1, 8).setValue("APPROVED"); 
+      break;
+    }
+  }
+}
 
-        function simpanTransaksiBaru() {
-            const ket = document.getElementById("inputKet").value.trim();
-            const nom = document.getElementById("inputNominal").value.trim();
-            const tipe = document.getElementById("inputTipe").value;
-            const pot = document.getElementById("inputPotongan").value;
+function getRiwayatData(params) {
+  const idStr = params.id.toString().trim();
+  const offset = parseInt(params.offset) || 0;
+  const logSheet = getMonthlyLogSheet();
+  const logSheetName = logSheet.getName();
 
-            if(!ket || !nom) return alert("Keterangan dan Nominal tidak boleh kosong!");
+  let tempSheet = SS.getSheetByName("Query_Temp");
+  if (!tempSheet) tempSheet = SS.insertSheet("Query_Temp");
+  tempSheet.clear();
+  
+  tempSheet.getRange("A1").setFormula(`=QUERY(${logSheetName}!A:I, "WHERE C = '${idStr}' ORDER BY B DESC", 1)`);
+  SpreadsheetApp.flush();
+  
+  const queryResult = tempSheet.getDataRange().getValues();
+  tempSheet.clear();
 
-            const btn = document.getElementById("btnSimpanTrx");
-            btn.disabled = true;
-            btn.innerText = "Menyimpan Transaksi...";
+  const filtered = queryResult.slice(1);
+  const paginated = filtered.slice(offset, offset + 50);
 
-            fetch(WEB_APP_URL, {
-                method: "POST",
-                body: JSON.stringify({
-                    action: "simpanTransaksi",
-                    params: {
-                        idRider: CURRENT_RIDER_ID,
-                        tipe: tipe,
-                        items: [{ qty: 1, ket: ket, nominal: Number(nom), potongan: Number(pot) }]
-                    }
-                })
-            })
-            .then(res => res.json())
-            .then(res => {
-                if(res.status === "success" && res.data.status === "success") {
-                    alert("✅ Transaksi Berhasil Disimpan!\nInvoice: " + res.data.nota);
-                    // Reset Form
-                    document.getElementById("inputTarifPilihan").value = "MANUAL";
-                    pilihTarifDatabase(document.getElementById("inputTarifPilihan"));
-                    // Reload Data dashboard terbaru
-                    loadDashboardData();
-                } else {
-                    alert("Gagal menyimpan transaksi.");
-                }
-                btn.disabled = false;
-                btn.innerText = "SIMPAN TRANSAKSI";
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Kesalahan Jaringan.");
-                btn.disabled = false;
-                btn.innerText = "SIMPAN TRANSAKSI";
-            });
-        }
-
-        function renderRiwayat(list) {
-            const container = document.getElementById("containerRiwayat");
-            if(!list || list.length === 0) {
-                container.innerHTML = `<p class="p-8 text-center text-sm text-gray-400">Belum ada riwayat transaksi.</p>`;
-                return;
-            }
-
-            container.innerHTML = list.map(r => {
-                let badgeColor = "bg-green-100 text-green-800";
-                let statusText = r.status;
-
-                if (r.status.toUpperCase().includes("CANCEL")) {
-                    badgeColor = "bg-red-100 text-red-800";
-                } else if (r.status.toUpperCase().includes("PENDING")) {
-                    badgeColor = "bg-yellow-100 text-yellow-800";
-                }
-
-                return `
-                    <div class="p-4 flex justify-between items-center hover:bg-gray-50 transition">
-                        <div class="space-y-0.5">
-                            <div class="flex items-center space-x-2">
-                                <span class="text-xs font-mono font-bold text-gray-500">${r.id}</span>
-                                <span class="text-[10px] uppercase font-extrabold px-1.5 py-0.2 bg-gray-100 text-gray-600 rounded">${r.tipe}</span>
-                            </div>
-                            <p class="text-sm font-semibold text-gray-800">${r.ket}</p>
-                            <p class="text-[11px] text-gray-400">${r.tglDisplay} • ${r.jam}</p>
-                        </div>
-                        <div class="text-right space-y-1">
-                            <p class="text-sm font-bold text-gray-900">Rp ${Number(r.nom).toLocaleString('id-ID')}</p>
-                            <span class="inline-block text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${badgeColor}">${statusText}</span>
-                        </div>
-                    </div>
-                `;
-            }).join("");
-        }
-
-        function logout() {
-            CURRENT_RIDER_ID = "";
-            document.getElementById("dashboardPage").classList.add("hidden");
-            document.getElementById("loginPage").classList.remove("hidden");
-            document.getElementById("userId").value = "";
-            document.getElementById("userPin").value = "";
-            document.getElementById("btnLogin").disabled = false;
-            document.getElementById("btnLogin").innerText = "MASUK KEDASHBOARD";
-        }
-    </script>
-</body>
-</html>
+  return {
+    riwayat: paginated.map(r => ({
+      id: r[0],
+      jam: Utilities.formatDate(new Date(r[1]), "GMT+7", "HH.mm") + " WIB",
+      tglDisplay: Utilities.formatDate(new Date(r[1]), "GMT+7", "dd MMM yyyy"),
+      ket: r[4], 
+      device: "Ramping Mode", // Proteksi sinkronisasi properti objek
+      tipe: r[5],  
+      nom: r[6],  
+      status: r[7] ? r[7].toString().trim() : "OK"
+    })),
+    totalDataRider: filtered.length,
+    hasMore: (offset + 50) < filtered.length
+  };
+}
