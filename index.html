@@ -234,23 +234,80 @@
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyjGxOCz4F95T_pUeblJt4nP8DVN4iWaVpXyfrW3ed8-6X-NARfq7cJ3KGkKJ8OSx5alQ/exec";
     
-    // 🔒 🔥 OPTIMASI UTAMA: DATA TARIF DIKUNCI DI FRONTEND (ANTI LEMOT & INSTAN)
-    // Silakan tambahkan, kurangi, atau edit isi menu di bawah ini jika ada perubahan harga di masa depan.
+    // 🔒 DATA TARIF ASLI KUKAMI DELIVERY - TERKUNCI AMAN DI FRONTEND
     const LIST_TARIF_GLOBAL = [
-      // Kategori: DELIVERY KOTA
-      { kategori: "DELIVERY KOTA", layanan: "D-KOTA SUBANG COKRO", nominal: 8000, potongan: 0 },
-      { kategori: "DELIVERY KOTA", layanan: "D-KOTA SUBANG CIGADUNG", nominal: 10000, potongan: 0 },
-      { kategori: "DELIVERY KOTA", layanan: "D-KOTA SUBANG PARUNG", nominal: 12000, potongan: 0 },
-      
-      // Kategori: DELIVERY LUAR KOTA
-      { kategori: "DELIVERY LUAR KOTA", layanan: "LUAR KOTA PAGADEN", nominal: 25000, potongan: 0 },
-      { kategori: "DELIVERY LUAR KOTA", layanan: "LUAR KOTA JALANCAGAK", nominal: 35000, potongan: 0 },
-      { kategori: "DELIVERY LUAR KOTA", layanan: "LUAR KOTA KALIJATI", nominal: 30000, potongan: 0 },
+      // Kategori: TARIF DASAR
+      { kategori: "TARIF DASAR", layanan: "Ongkir 0-3 Km", nominal: 10000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 3.1-4 Km", nominal: 12000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 4.1-5 Km", nominal: 14000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 5.1-6 Km", nominal: 16000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 6.1-7 Km", nominal: 18000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 7.1-8 Km", nominal: 20000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 8.1-9 Km", nominal: 22000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 9.1-10 Km", nominal: 27000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 10.1-11 Km", nominal: 29000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 11.1-12 Km", nominal: 31000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 12.1-13 Km", nominal: 33000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 13.1-14 Km", nominal: 35000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 14.1-15 Km", nominal: 37000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 15.1-16 Km", nominal: 39000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 16.1-17 Km", nominal: 41000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 17.1-18 Km", nominal: 43000, potongan: 0.2 },
+      { kategori: "TARIF DASAR", layanan: "Ongkir 18.1-19 Km", nominal: 45000, potongan: 0.2 },
 
       // Kategori: FEE TAMBAHAN
-      { kategori: "FEE TAMBAHAN", layanan: "FEE BELANJA MULTIPLE", nominal: 5000, potongan: 0 },
-      { kategori: "FEE TAMBAHAN", layanan: "FEE HUJAN EXTRA", nominal: 3000, potongan: 0 },
-      { kategori: "FEE TAMBAHAN", layanan: "FEE OVERLOAD / BERAT", nominal: 7000, potongan: 0 }
+      { kategori: "FEE TAMBAHAN", layanan: "Fee Tambah tempat", nominal: 2000, potongan: 0.2 },
+      { kategori: "FEE TAMBAHAN", layanan: "Fee hujan/gerimis 0-10 Km", nominal: 3000, potongan: 0 },
+      { kategori: "FEE TAMBAHAN", layanan: "Fee hujan/gerimis >=10 Km", nominal: 5000, potongan: 0 },
+      { kategori: "FEE TAMBAHAN", layanan: "Overload/melebihi batas muatan", nominal: 5000, potongan: 0.2 },
+      { kategori: "FEE TAMBAHAN", layanan: "Fee belanja Pasar/Swalayan", nominal: 5000, potongan: 0.2 },
+      { kategori: "FEE TAMBAHAN", layanan: "Cas diluar jam operasional 22.00 - 08.00...", nominal: 5000, potongan: 0 },
+      { kategori: "FEE TAMBAHAN", layanan: "Fee transaksi Gestun/Payment", nominal: 3000, potongan: 0.2 },
+      { kategori: "FEE TAMBAHAN", layanan: "Belanja >= 1.000.000", nominal: 20000, potongan: 0.2 },
+      { kategori: "FEE TAMBAHAN", layanan: "Belanja >=250.000", nominal: 5000, potongan: 0.2 },
+      { kategori: "FEE TAMBAHAN", layanan: "Belanja >=500.000", nominal: 10000, potongan: 0.2 },
+      { kategori: "FEE TAMBAHAN", layanan: "Belanja >=750.000", nominal: 15000, potongan: 0.2 },
+
+      // Kategori: PARKIR
+      { kategori: "PARKIR", layanan: "Parkir", nominal: 2000, potongan: 0 },
+
+      // Kategori: ASWAJA
+      { kategori: "ASWAJA", layanan: "Tarif Dasar Aswaja 0-10 Km", nominal: 27000, potongan: 0.2 },
+
+      // Kategori: TARIF PENUMPANG
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 0 - 3 km", nominal: 12000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 3.1-4 Km", nominal: 14000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 4.1-5 Km", nominal: 16000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 5.1-6 Km", nominal: 18000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 6.1-7 Km", nominal: 20000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 7.1-8 Km", nominal: 22000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 8.1-9 Km", nominal: 24000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 9.1-10 Km", nominal: 31000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 10.1-11 Km", nominal: 33000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 11.1-12 Km", nominal: 35000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 12.1-13 Km", nominal: 37000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 13.1-14 Km", nominal: 39000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 14.1-15 Km", nominal: 41000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 15.1-16 Km", nominal: 43000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 16.1-17 Km", nominal: 45000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 17.1-18 Km", nominal: 47000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 18.1-19 Km", nominal: 49000, potongan: 0.2 },
+      { kategori: "TARIF PENUMPANG", layanan: "TARIF PENUMPANG 19.1-20 Km", nominal: 51000, potongan: 0.2 },
+
+      // Kategori: TARIF 20KM UP
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 19.1-20 Km", nominal: 60000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 20.1-21 Km", nominal: 63000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 21.1-22 Km", nominal: 66000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 22.1-23 Km", nominal: 69000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 23.1-24 Km", nominal: 72000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 24.1-25 Km", nominal: 75000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 25.1-26 Km", nominal: 78000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 26.1-27 Km", nominal: 81000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 27.1-28 Km", nominal: 84000, potongan: 0.2 },
+      { kategori: "TARIF 20KM UP", layanan: "Ongkir 28.1-29 Km", nominal: 87000, potongan: 0.2 },
+
+      // Kategori: HP ADMIN
+      { kategori: "HP ADMIN", layanan: "Antar HP Admin", nominal: 10000, potongan: 0.2 }
     ];
 
     async function KUKAMI_API(actionName, parameters) {
@@ -281,7 +338,7 @@
         initDashboard();
       }
       initPWA();
-      buildTarifUI(); // Langsung render UI Tarif dari memori lokal (Instant!)
+      buildTarifUI();
     });
 
     function showLoader() { document.getElementById('loader').style.display = 'flex'; }
@@ -351,7 +408,6 @@
       finally { hideLoader(); }
     }
 
-    // Pembuatan Element Grid Tarif Lebih Gesit & Instan
     function buildTarifUI() {
       const cats = [...new Set(LIST_TARIF_GLOBAL.map(t => t.kategori))];
       const catList = document.getElementById('cat-list');
