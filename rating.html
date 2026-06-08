@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KUKAMI - Beri Ulasan Layanan</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        <!-- Top Banner Profil Rider -->
+        <div class="bg-gradient-to-r from-red-800 to-red-900 text-white p-6 text-center">
+            <img id="loaderFoto" src="https://via.placeholder.com/150" class="w-20 h-20 rounded-full mx-auto border-4 border-white/20 object-cover shadow-md mb-3">
+            <h2 class="text-lg font-bold" id="loaderNama">Memuat Nama Rider...</h2>
+            <p class="text-xs text-red-200 mt-0.5" id="loaderInv">Invoice: -</p>
+        </div>
+
+        <!-- Form Pengisian -->
+        <div class="p-6 space-y-6">
+            <!-- Pilihan Bintang -->
+            <div class="text-center">
+                <label class="block text-xs font-bold uppercase text-gray-400 tracking-wider mb-2">Berikan Bintang Anda</label>
+                <div class="flex justify-center space-x-2 text-3xl" id="starContainer">
+                    <button onclick="setBintang(1)" class="star text-gray-300 hover:scale-110 transition">★</button>
+                    <button onclick="setBintang(2)" class="star text-gray-300 hover:scale-110 transition">★</button>
+                    <button onclick="setBintang(3)" class="star text-gray-300 hover:scale-110 transition">★</button>
+                    <button onclick="setBintang(4)" class="star text-gray-300 hover:scale-110 transition">★</button>
+                    <button onclick="setBintang(5)" class="star text-gray-300 hover:scale-110 transition">★</button>
+                </div>
+            </div>
+
+            <!-- Ulasan Text -->
+            <div>
+                <label class="block text-xs font-bold uppercase text-gray-400 tracking-wider mb-2">Tulis Masukan/Ulasan</label>
+                <textarea id="txtUlasan" rows="3" class="w-full p-3 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-red-800 focus:outline-none text-sm text-gray-700" placeholder="Pelayanannya cepat, ramah, amanah..."></textarea>
+            </div>
+
+            <!-- Tombol Kirim -->
+            <button onclick="kirimRating()" id="btnKirim" class="w-full bg-red-800 hover:bg-red-900 text-white font-bold p-3.5 rounded-2xl shadow-md transition duration-200">
+                KIRIM ULASAN SEKARANG
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Parameter otomatis bawaan eksekusi Apps Script GET
+        const WEB_APP_URL = "<?= webAppUrl ?>";
+        const INVOICE_ID = "<?= inv ?>";
+        const RIDER_ID = "<?= rider ?>";
+        let SELECTED_RATING = 0;
+
+        // Inisialisasi awal saat halaman dibuka
+        window.onload = function() {
+            document.getElementById("loaderInv").innerText = "Invoice: " + INVOICE_ID;
+            ambilProfilRider();
+        };
+
+        function ambilProfilRider() {
+            if(!RIDER_ID || RIDER_ID === "") return;
+            
+            fetch(WEB_APP_URL + "?action=getProfileRiderForRating&riderId=" + RIDER_ID)
+            .then(res => res.json())
+            .then(res => {
+                if(res && res.nama) {
+                    document.getElementById("loaderNama").innerText = res.nama;
+                    if(res.foto) document.getElementById("loaderFoto").src = res.foto;
+                } else {
+                    document.getElementById("loaderNama").innerText = "RIDER KUKAMI";
+                }
+            })
+            .catch(() => {
+                document.getElementById("loaderNama").innerText = "RIDER KUKAMI";
+            });
+        }
+
+        function setBintang(num) {
+            SELECTED_RATING = num;
+            const stars = document.querySelectorAll(".star");
+            stars.forEach((star, index) => {
+                if(index < num) {
+                    star.classList.remove("text-gray-300");
+                    star.classList.add("text-yellow-500");
+                } else {
+                    star.classList.remove("text-yellow-500");
+                    star.classList.add("text-gray-300");
+                }
+            });
+        }
+
+        function kirimRating() {
+            if(SELECTED_RATING === 0) return alert("Silakan pilih jumlah bintang terlebih dahulu!");
+            const ulasan = document.getElementById("txtUlasan").value.trim();
+
+            const btn = document.getElementById("btnKirim");
+            btn.disabled = true;
+            btn.innerText = "Mengirim Ulasan...";
+
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "simpanUlasanKonsumen",
+                    params: {
+                        invoice: INVOICE_ID,
+                        riderId: RIDER_ID,
+                        rating: SELECTED_RATING,
+                        ulasan: ulasan,
+                        consumerFp: "DUMMY-FP-123" // Digunakan untuk pencocokan token di sisi Apps Script
+                    }
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                // 🔐 INTEGRASI ANTI-FRAUD TERBARU
+                if (res.status === "success") {
+                    if (res.data === "fraud_blocked") {
+                        alert("⛔ AKSES DITOLAK!\nAnda tidak diizinkan memberikan ulasan rating ke akun Anda sendiri.");
+                    } else if (res.data === "duplicate") {
+                        alert("❌ Ulasan Gagal!\nKuitansi invoice ini sudah pernah diisi rating sebelumnya.");
+                    } else if (res.data === "success") {
+                        alert("⭐ Terima Kasih!\nUlasan berharga Anda telah berhasil disimpan ke database.");
+                        window.close();
+                    } else {
+                        alert("Gagal memproses pengiriman.");
+                    }
+                } else {
+                    alert("Gagal mengirim data.");
+                }
+                btn.disabled = false;
+                btn.innerText = "KIRIM ULASAN SEKARANG";
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Terjadi masalah koneksi.");
+                btn.disabled = false;
+                btn.innerText = "KIRIM ULASAN SEKARANG";
+            });
+        }
+    </script>
+</body>
+</html>
