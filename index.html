@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Inter:wght@400;600;700;800&family=Roboto:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=900&family=Inter:wght=400;600;700;800&family=Roboto:wght=400&display=swap" rel="stylesheet">
   
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#800000">
@@ -67,7 +67,7 @@
 
   <div id="p-login" class="page active">
     <div style="text-align:center; margin-top:80px; margin-bottom:20px;"><div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:42px;letter-spacing:-3px;"><span style="color:var(--maroon);">KU</span><span style="color:var(--navy);">KAMI</span></div><span style="font-family:'Roboto',sans-serif;font-size:13px;letter-spacing:11.5px;text-indent: 8px;text-transform:lowercase;display:block;">delivery</span></div>
-    <div id="debug-layar" style="background:var(--maroon); color:var(--gold); padding:10px; font-weight:bold; font-size:12px; border-radius:10px; margin-bottom:10px; border:1px solid var(--gold); text-align:center;">API ENGINE ACTIVE - GITHUB MODE</div>
+    <div id="debug-layar" style="background:var(--maroon); color:var(--gold); padding:10px; font-weight:bold; font-size:12px; border-radius:10px; margin-bottom:10px; border:1px solid var(--gold); text-align:center;">API ENGINE ACTIVE - FRONTEND TARIF MODE</div>
     <div style="padding: 20px;"><input type="text" id="user" placeholder="Nama Rider"><input type="password" id="pin" placeholder="PIN" inputmode="numeric"><button class="btn" onclick="prosesLogin()">MASUK</button></div>
     <div id="install-container" style="display:none; text-align:center; margin-top:25px; padding: 0 20px;">
       <button id="btn-install" class="btn" style="background:var(--gold); color:#000; box-shadow:0 4px 10px rgba(212, 175, 55, 0.4); border: 2px solid #fff;">
@@ -81,30 +81,30 @@
     <div id="p-home" class="page active">
       <div class="card-profile">
         <div style="display:flex; align-items:center; gap:12px;">
-          <img id="r-foto" onclick="bukaRaportLangsung()" style="width:55px; height:55px; border-radius:50%; border:2px solid var(--gold); object-fit: cover; background:#eee; cursor:pointer;">
+          <img id="r-foto" style="width:55px; height:55px; border-radius:50%; border:2px solid var(--gold); object-fit: cover; background:#eee;">
           
           <div style="flex:1;">
-  <h3 id="r-nama" style="margin:0; font-size:15px; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);"></h3>
-  
-  <div style="font-size: 9px; color: rgba(255,255,255,0.9); margin-top: 6px; line-height: 1.4; font-family: 'Inter', sans-serif;">
-    <div style="display: flex; justify-content: space-between; padding-bottom: 0px; margin-bottom: 0px;">
-      <div>
-        <span style="display:inline-block; width:52px; font-weight: 800; color: #FFD700;">HARI INI</span>: 
-        <b id="h-trip">0</b> <span style="color:#FFD700">#<span id="h-rank">-</span></span> 
-        (ON: <b id="h-on">0</b> <span style="color:#FFD700">#<span id="h-rank-on">-</span></span> | 
-        OFF: <b id="h-off">0</b> <span style="color:#FFD700">#<span id="h-rank-off">-</span></span>)
-      </div>      
-    </div>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <span style="display:inline-block; width:52px; font-weight: 800; color: #FFD700;">BULAN INI</span>: 
-        <b id="b-trip">0</b> <span style="color:#FFD700">#<span id="b-rank">-</span></span> 
-        (ON: <b id="b-on">0</b> <span style="color:#FFD700">#<span id="b-rank-on">-</span></span> | 
-        OFF: <b id="b-off">0</b> <span style="color:#FFD700">#<span id="b-rank-off">-</span></span>)
-      </div>      
-    </div>
-  </div>
-  </div>
+            <h3 id="r-nama" style="margin:0; font-size:15px; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);"></h3>
+            
+            <div style="font-size: 9px; color: rgba(255,255,255,0.9); margin-top: 6px; line-height: 1.4; font-family: 'Inter', sans-serif;">
+              <div style="display: flex; justify-content: space-between;">
+                <div>
+                  <span style="display:inline-block; width:52px; font-weight: 800; color: #FFD700;">HARI INI</span>: 
+                  <b id="h-trip">0</b> <span style="color:#FFD700">#<span id="h-rank">-</span></span> 
+                  (ON: <b id="h-on">0</b> <span style="color:#FFD700">#<span id="h-rank-on">-</span></span> | 
+                  OFF: <b id="h-off">0</b> <span style="color:#FFD700">#<span id="h-rank-off">-</span></span>)
+                </div>      
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <div>
+                  <span style="display:inline-block; width:52px; font-weight: 800; color: #FFD700;">BULAN INI</span>: 
+                  <b id="b-trip">0</b> <span style="color:#FFD700">#<span id="b-rank">-</span></span> 
+                  (ON: <b id="b-on">0</b> <span style="color:#FFD700">#<span id="b-rank-on">-</span></span> | 
+                  OFF: <b id="b-off">0</b> <span style="color:#FFD700">#<span id="b-rank-off">-</span></span>)
+                </div>      
+              </div>
+            </div>
+          </div>
           <div style="text-align:right;">
             <small style="font-size:10px; color:var(--gold); font-weight:bold;">SALDO</small><br>
             <span id="r-saldo" style="font-weight:bold; font-size:14px;">Rp 0</span>
@@ -151,7 +151,6 @@
 
   <div id="m-cart" class="modal"><div class="m-content"><h3>KERANJANG</h3><div id="c-list" style="text-align:left;"></div><hr><div style="display:flex; gap:10px;"><button class="btn" onclick="finalProcess('Online')" style="background:#007bff; flex:1;">ONLINE</button><button class="btn" onclick="finalProcess('Offline')" style="background:#dc3545; flex:1;">OFFLINE</button></div><button class="btn" onclick="tutupKeranjang()" style="background:#666; margin-top:10px;">BATAL</button></div></div>
   <div id="m-alert" class="modal" style="display:none; z-index:15000; background:rgba(0,0,0,0.85);"><div class="m-content" style="border:2px solid var(--gold); padding:0; width:85%;"><div style="background:var(--maroon); color:var(--gold); padding:15px; font-weight:900;">⚠️ PERIKSA KERANJANG</div><div style="padding:20px; font-weight:bold; color:#333;">Mohon di cek kembali ada tarif atau fee tambahan yang lebih dari 1 QTY!</div><div style="padding:0 20px 20px 20px;"><button class="btn" onclick="tutupAlert()" style="background:var(--maroon); color:var(--gold);">OK, SAYA MENGERTI</button></div></div></div>
-  <div id="m-confirm" class="modal"><div class="m-content"><h3>Konfirmasi</h3><p id="confirm-msg"></p><div style="display:flex; gap:10px;"><button class="btn" onclick="executeAddToCart()" style="background:#28a745; flex:1;">LANJUTKAN</button><button class="btn" onclick="closeConfirm()" style="background:#dc3545; flex:1;">BATAL</button></div></div></div>
   <div id="m-ket-manual" class="modal"><div class="m-content"><h3 style="margin-top:0; color:var(--maroon);">Keterangan Belanja</h3><input type="text" id="m-input-ket" placeholder="Contoh: Nasi Goreng Pak Jo" autocomplete="off"><button class="btn" onclick="submitKetManual()" style="background: #28a745;">TAMBAH KE KERANJANG</button><button class="btn" onclick="document.getElementById('m-ket-manual').style.display='none'" style="background:#666; margin-top:10px;">BATAL</button></div></div>
   
   <div id="m-topup" class="modal">
@@ -165,12 +164,12 @@
         <option value="BSI">BSI 7110275212 an. Jimmy Irmansyah</option>
         <option value="OVO">OVO 081220774717 an. Jimmy Irmansyah</option>
         <option value="GOPAY">GOPAY 081220774717 an. Kukami Delivery</option>
-        <option value="SHOPEEPAY">SHOPEEPAY 081220774717 an.  Jimmy Irmansyah</option>
+        <option value="SHOPEEPAY">SHOPEEPAY 081220774717 an. Jimmy Irmansyah</option>
         <option value="LAIN LAIN">LAIN LAIN</option>
       </select>
-      <div id="container-ket-lainnya" style="display: none; margin-top: 10px; text-align: left; font-family: 'Inter', sans-serif;">
+      <div id="container-ket-lainnya" style="display: none; margin-top: 10px; text-align: left;">
         <label style="color: var(--maroon); font-weight: bold; font-size: 11px; display: block; margin-bottom: 5px;">DETAIL CASH / KUPAY / CS TRANSFER (WAJIB):</label>
-        <textarea id="u-ket-lainnya" placeholder="Jelaskan di sini, misal: TOP UP CASH di Kantor, KUPAY, atau Depo dari CS transfer ke admin, dll..." style="width: 100%; height: 75px; border-radius: 12px; padding: 10px; border: 1px solid #ccc; font-size: 12px; resize: none; box-sizing: border-box; outline: none; font-family: inherit;"></textarea>
+        <textarea id="u-ket-lainnya" placeholder="Jelaskan di sini, misal: TOP UP CASH di Kantor, KUPAY, atau Depo dari CS transfer..." style="width: 100%; height: 75px; border-radius: 12px; padding: 10px; border: 1px solid #ccc; font-size: 12px; resize: none; box-sizing: border-box; outline: none; font-family: inherit;"></textarea>
       </div>
       <button class="btn" onclick="saveTopUp()" style="background:#28a745; margin-top:15px;">KIRIM</button>
       <button class="btn" onclick="document.getElementById('m-topup').style.display='none'" style="background:#666; margin-top:10px;">BATAL</button>
@@ -183,12 +182,11 @@
         <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;letter-spacing:-2px;"><span style="color:var(--maroon);">KU</span><span style="color:var(--navy);">KAMI</span></div>
         <span style="font-family:'Roboto',sans-serif;font-size:9px;letter-spacing:8px;text-indent: 8px;text-transform:lowercase;display:block;">delivery</span>
         <div style="font-size: 8px; color: #333; margin-top: 10px; line-height: 1.4; font-weight: 600;">
-          Admin 1 : 081-220-774-717<br>
-          Admin 2 : 0896-300-423-91
+          Admin 1 : 081-220-774-717<br>Admin 2 : 0896-300-423-91
         </div>
       </div>
       <div style="border-bottom: 1px dashed #000; margin: 12px 0;"></div>
-      <div style="font-size:10px; margin-bottom:15px; line-height: 1.2; color: #444; font-family: 'Inter', sans-serif;">
+      <div style="font-size:10px; margin-bottom:15px; line-height: 1.2; color: #444;">
         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding-bottom: 2px; margin-bottom: 3px;">
           <span>Nama Rider</span><span id="s-rider" style="font-weight: bold; color: #000;">-</span>
         </div>
@@ -209,7 +207,7 @@
       <div style="border-bottom: 1px dashed #000; margin: 10px 0;"></div>
       <div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-weight: bold; font-size: 12px;">TOTAL:</span><span id="s-total" style="background-color: #FFD700; color: #000; font-weight: 900; font-size: 12px; padding: 2px 10px; border-radius: 4px;">Rp 0</span></div>
       <div style="border-bottom: 1px dashed #000; margin: 10px 0;"></div>
-      <div style="text-align: center; margin-top: 15px; font-size: 11px; font-family: sans-serif; font-style: italic;">Jazakumullohu Khoiron Katsiron</div>
+      <div style="text-align: center; margin-top: 15px; font-size: 11px; font-style: italic;">Jazakumullohu Khoiron Katsiron</div>
       <div style="text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc;">
         <p style="margin: 0 0 5px 0; font-size: 10px; color: #666; font-weight: bold;">SCAN UNTUK RATING LAYANAN</p>
         <div id="struk-qrcode" style="width: 150px; height: 150px; margin: 0 auto; background: #fff;"></div>
@@ -218,13 +216,13 @@
     <div style="padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #E5E5E5;">
       <div style="display: flex; gap: 10px;"><button class="btn" style="background: #5d0000; flex: 1;" onclick="printStruk()">SIMPAN</button><button class="btn" style="background: #25D366; flex: 1;" onclick="shareStruk()">KIRIM STRUK</button></div>
       <div id="area-tombol-cancel-kukami">
-        <button type="button" onclick="tampilkanFormCancel()" style="background:#CE1212; color:white; border:none; width:100%; padding:14px; border-radius:50px; font-weight:bold; font-size:14px; cursor:pointer; margin-top:5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <button type="button" onclick="tampilkanFormCancel()" style="background:#CE1212; color:white; border:none; width:100%; padding:14px; border-radius:50px; font-weight:bold; font-size:14px; cursor:pointer; margin-top:5px;">
           ⚠️ AJUKAN PEMBATALAN STRUK
         </button>
       </div>
-      <div id="container-form-cancel" style="display:none; margin-top:5px; padding:15px; background:#f9f9f9; border:1px solid #ddd; border-radius:15px; text-align:left;">
+      <div id="container-form-cancel" style="display:none; margin-top:5px; padding:15px; background:#f9f9f9; border:1px solid #ddd; border-radius:15px;">
         <label style="font-size:12px; font-weight:bold; color:var(--maroon); display:block; margin-bottom:6px;">ALASAN PEMBATALAN (WAJIB):</label>
-        <textarea id="input-alasan-cancel" placeholder="Contoh: Salah input nominal tarif / Konsumen batalkan pesanan di tempat..." style="width:100%; height:75px; padding:10px; border:1px solid #ccc; border-radius:10px; font-size:13px; resize:none; box-sizing:border-box; outline:none; font-family:inherit;"></textarea>
+        <textarea id="input-alasan-cancel" placeholder="Alasan pembatalan..." style="width:100%; height:75px; padding:10px; border:1px solid #ccc; border-radius:10px; font-size:13px; resize:none; box-sizing:border-box; outline:none; font-family:inherit;"></textarea>
         <button type="button" onclick="kirimPengajuanCancel(document.getElementById('s-inv').innerText)" style="background:var(--maroon); color:white; border:none; width:100%; padding:10px; border-radius:10px; font-weight:bold; font-size:13px; cursor:pointer; margin-top:10px;">
           KIRIM PERMOHONAN KE ADMIN
         </button>
@@ -234,10 +232,27 @@
   </div>
 
   <script>
-    // 🔴 BOS BESAR WAJIB ISI URL INI DENGAN LINK DEPLOY "DOPOST" WEB APP GAS YANG BARU!
-    const API_URL = "https://script.google.com/macros/s/AKfycbyjGxOCz4F95T_pUeblJt4nP8DVN4iWaVpXyfrW3ed8-6X-NARfq7cJ3KGkKJ8OSx5alQ/exec"; 
+    const API_URL = "https://script.google.com/macros/s/AKfycbyjGxOCz4F95T_pUeblJt4nP8DVN4iWaVpXyfrW3ed8-6X-NARfq7cJ3KGkKJ8OSx5alQ/exec";
+    
+    // 🔒 🔥 OPTIMASI UTAMA: DATA TARIF DIKUNCI DI FRONTEND (ANTI LEMOT & INSTAN)
+    // Silakan tambahkan, kurangi, atau edit isi menu di bawah ini jika ada perubahan harga di masa depan.
+    const LIST_TARIF_GLOBAL = [
+      // Kategori: DELIVERY KOTA
+      { kategori: "DELIVERY KOTA", layanan: "D-KOTA SUBANG COKRO", nominal: 8000, potongan: 0 },
+      { kategori: "DELIVERY KOTA", layanan: "D-KOTA SUBANG CIGADUNG", nominal: 10000, potongan: 0 },
+      { kategori: "DELIVERY KOTA", layanan: "D-KOTA SUBANG PARUNG", nominal: 12000, potongan: 0 },
+      
+      // Kategori: DELIVERY LUAR KOTA
+      { kategori: "DELIVERY LUAR KOTA", layanan: "LUAR KOTA PAGADEN", nominal: 25000, potongan: 0 },
+      { kategori: "DELIVERY LUAR KOTA", layanan: "LUAR KOTA JALANCAGAK", nominal: 35000, potongan: 0 },
+      { kategori: "DELIVERY LUAR KOTA", layanan: "LUAR KOTA KALIJATI", nominal: 30000, potongan: 0 },
 
-    // 🚀 MESIN PENGGANTI google.script.run (Super Ringan & Anti-CORS)
+      // Kategori: FEE TAMBAHAN
+      { kategori: "FEE TAMBAHAN", layanan: "FEE BELANJA MULTIPLE", nominal: 5000, potongan: 0 },
+      { kategori: "FEE TAMBAHAN", layanan: "FEE HUJAN EXTRA", nominal: 3000, potongan: 0 },
+      { kategori: "FEE TAMBAHAN", layanan: "FEE OVERLOAD / BERAT", nominal: 7000, potongan: 0 }
+    ];
+
     async function KUKAMI_API(actionName, parameters) {
       try {
         const response = await fetch(API_URL, {
@@ -253,784 +268,384 @@
       }
     }
 
-    var warnedOnce = false;
-    var curRider = {}, masterTarif = [], cart = [], pendingItem = null, curNomStr = "0";
+    let RIDER_INFO = null;
+    let CART = [];
+    let currentNum = "";
+    let qrcodeInstance = null;
+    let isRiwayatLoaded = false;
 
-    function getFingerprint() {
-      try {
-        var id = localStorage.getItem('kukami_fp');
-        if (!id) {
-          id = 'ID-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-          localStorage.setItem('kukami_fp', id);
-        }
-        return id;
-      } catch(e) { return "ID-UNKNOWN-" + Math.floor(Math.random() * 10000); }
+    window.addEventListener('load', () => {
+      const saved = localStorage.getItem("rider_id");
+      if (saved) {
+        RIDER_INFO = { id: saved, nama: localStorage.getItem("rider_nama") || "" };
+        initDashboard();
+      }
+      initPWA();
+      buildTarifUI(); // Langsung render UI Tarif dari memori lokal (Instant!)
+    });
+
+    function showLoader() { document.getElementById('loader').style.display = 'flex'; }
+    function hideLoader() { document.getElementById('loader').style.display = 'none'; }
+    function showToast(msg) {
+      const c = document.getElementById('toast-container');
+      const t = document.createElement('div');
+      t.className = 'toast'; t.innerText = msg; c.appendChild(t);
+      setTimeout(() => t.remove(), 3000);
     }
 
-    function formatRibuan(v) { return v.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
-    function getAngka(v) { return Number(v.toString().replace(/\./g, "")); }
-
-    function toast(m) {
-      var c = document.getElementById('toast-container');
-      if (!c) return;
-      var d = document.createElement('div');
-      d.className = 'toast';
-      d.innerHTML = m;
-      c.appendChild(d);
-      setTimeout(function() { d.remove(); }, 2500);
-    }
-
-    function showLoading(s) {
-      var loader = document.getElementById('loader');
-      if(loader) loader.style.display = s ? 'flex' : 'none';
-    }
-
-    function setSubTab(n) {
-      document.getElementById('f-manual').style.display = (n === 1) ? 'block' : 'none';
-      document.getElementById('f-tarif').style.display = (n === 2) ? 'block' : 'none';
-      document.getElementById('tb1').className = 'tab-btn ' + (n === 1 ? 'tab-active' : 'tab-inactive');
-      document.getElementById('tb2').className = 'tab-btn ' + (n === 2 ? 'tab-active' : 'tab-inactive');
-    }
-
-    function switchMainTab(t) {
-      document.getElementById('p-home').style.display = (t === 'home') ? 'block' : 'none';
-      document.getElementById('p-riwayat').style.display = (t === 'riwayat') ? 'block' : 'none';
-      document.getElementById('n-home').className = 'nav-item ' + (t === 'home' ? 'active' : '');
-      document.getElementById('n-riwayat').className = 'nav-item ' + (t === 'riwayat' ? 'active' : '');
-    }
-
-    // 🌟 1. PERUBAHAN FUNGSI LOGIN MENGGUNAKAN API FETCH
-    function prosesLogin() {
-      var debug = document.getElementById('debug-layar');
-      if(debug) debug.innerText = "⏳ MENGHUBUNGKAN CLOUD SERVER...";
-      showLoading(true);
+    async function prosesLogin() {
+      const u = document.getElementById('user').value.trim();
+      const p = document.getElementById('pin').value.trim();
+      if(!u || !p) return showToast("Isi Nama & PIN!");
       
-      var paramLogin = {
-        user: document.getElementById('user').value,
-        pin: document.getElementById('pin').value,
-        fp: getFingerprint(),
-        userAgent: navigator.userAgent
-      };
-
-      KUKAMI_API("loginRider", paramLogin)
-        .then(function(res) {
-          showLoading(false);
-          if (res && res.status === "success") {
-            if(debug) debug.innerText = "✅ AKSES DITERIMA!";
-            curRider = res.rider;
-            try { localStorage.setItem('kukami_session', JSON.stringify(curRider)); } catch(e) {}
-            initDashboard();
-          } else if (res && res.status === "device_locked") {
-            if(debug) debug.innerText = "❌ AKSES DITOLAK: DEVICE TERKUNCI";
-            toast("🔒 <b>Akses Ditolak!</b> Akun terkunci di perangkat lain."); 
-          } else {
-            if(debug) debug.innerText = "❌ PIN ATAU AKUN SALAH";
-            toast("❌ <b>Akses Ditolak!</b> Akun tidak terdaftar atau PIN salah."); 
-          }
-        })
-        .catch(function(err) {
-          showLoading(false);
-          if(debug) debug.innerText = "⚠️ SERVER DOWN: " + err.toString();
-          toast("⚠️ <b>Gagal Terhubung:</b> Periksa jaringan internet Anda."); 
-        });
+      showLoader();
+      try {
+        const fp = getFingerprint();
+        const res = await KUKAMI_API("loginRider", { user: u, pin: p, fp: fp, userAgent: navigator.userAgent });
+        
+        if(res.status === "success") {
+          localStorage.setItem("rider_id", res.rider.id);
+          localStorage.setItem("rider_nama", res.rider.nama);
+          RIDER_INFO = res.rider;
+          showToast("Login Berhasil!");
+          initDashboard();
+        } else if(res.status === "device_locked") {
+          alert("⛔ AKSES DITOLAK!\nAkun Anda terkunci di perangkat lain.");
+        } else {
+          showToast(res.message);
+        }
+      } catch(e) { showToast("Koneksi Error!"); }
+      finally { hideLoader(); }
     }
 
-    // 🌟 2. PERUBAHAN FUNGSI INIT DASHBOARD MENGGUNAKAN API FETCH
-    function initDashboard() {
+    async function initDashboard() {
       document.getElementById('p-login').style.display = 'none';
       document.getElementById('app-content').style.display = 'block';
-      showLoading(true);
+      switchMainTab('home');
+      showLoader();
+      try {
+        const data = await KUKAMI_API("getDashboardData", { id: RIDER_INFO.id });
+        if(data) {
+          document.getElementById('r-nama').innerHTML = `${data.sapaan || 'Halo'}, <b>${RIDER_INFO.nama}</b> <span class="rank-badge ${data.kelas === 'DIAMOND' ? 'bg-rank-hari-top anim-diamond' : 'bg-rank-grey'}">${data.kelas || 'RIDER'}</span>`;
+          document.getElementById('r-saldo').innerText = "Rp " + Number(data.saldo).toLocaleString('id-ID');
+          document.getElementById('r-foto').src = data.foto || "https://cdn-icons-png.flaticon.com/512/3177/3177440.png";
+
+          document.getElementById('h-trip').innerText = data.stats.hari.total;
+          document.getElementById('h-rank').innerText = data.stats.hari.rank_tot;
+          document.getElementById('h-on').innerText = data.stats.hari.on;
+          document.getElementById('h-rank-on').innerText = data.stats.hari.rank_on;
+          document.getElementById('h-off').innerText = data.stats.hari.off;
+          document.getElementById('h-rank-off').innerText = data.stats.hari.rank_off;
+
+          document.getElementById('b-trip').innerText = data.stats.bulan.total;
+          document.getElementById('b-rank').innerText = data.stats.bulan.rank_tot;
+          document.getElementById('b-on').innerText = data.stats.bulan.on;
+          document.getElementById('b-rank-on').innerText = data.stats.bulan.rank_on;
+          document.getElementById('b-off').innerText = data.stats.bulan.off;
+          document.getElementById('b-rank-off').innerText = data.stats.bulan.rank_off;
+
+          renderRiwayatList(data.riwayat);
+          isRiwayatLoaded = true;
+        }
+      } catch(e) { showToast("Gagal memuat dashboard"); }
+      finally { hideLoader(); }
+    }
+
+    // Pembuatan Element Grid Tarif Lebih Gesit & Instan
+    function buildTarifUI() {
+      const cats = [...new Set(LIST_TARIF_GLOBAL.map(t => t.kategori))];
+      const catList = document.getElementById('cat-list');
       
-      KUKAMI_API("getDashboardData", { id: curRider.id })
-        .then(function(res) {
-          showLoading(false);
-          if (!res) return;
+      const catFragment = document.createDocumentFragment();
+      cats.forEach((c, idx) => {
+        const div = document.createElement('div');
+        div.className = 'chip'; div.id = 'chip-' + idx; div.innerText = c;
+        div.onclick = () => filterKategori(c, 'chip-' + idx);
+        catFragment.appendChild(div);
+      });
+      catList.innerHTML = ""; catList.appendChild(catFragment);
 
-          var perfMap = {
-            "TOP PERFORM": { icon: "💎", className: "anim-diamond" },
-            "TOP PERFORMER": { icon: "💎", className: "anim-diamond" },
-            "PERFORM": { icon: "🛡️", className: "" },
-            "PERFORMER": { icon: "🛡️", className: "" },
-            "UNDERPERFORM": { icon: "🚨", className: "anim-red" },
-            "UNDERPERFORMER": { icon: "🚨", className: "anim-red" }
-          };
+      if(cats.length > 0) filterKategori(cats[0], 'chip-0');
+    }
 
-          var statusRider = res.kelas ? res.kelas.toUpperCase().trim() : "";
-          var dataPerf = perfMap[statusRider] || { icon: "👤", className: "" };
-          var badgeHtml = '<span class="perf-icon ' + dataPerf.className + '">' + dataPerf.icon + '</span>';
-          
-          document.getElementById('r-nama').innerHTML = curRider.nama + ' ' + badgeHtml;
-          document.getElementById('r-saldo').innerText = "Rp " + Number(res.saldo || 0).toLocaleString();
-          if (res.foto) document.getElementById('r-foto').src = res.foto;
-          
-          document.getElementById('h-trip').innerText = res.stats.hari.total || 0;
-          document.getElementById('h-rank').innerText = res.stats.hari.rank_tot || "-"; 
-          document.getElementById('h-on').innerText = res.stats.hari.on || 0;
-          document.getElementById('h-rank-on').innerText = res.stats.hari.rank_on || "-";
-          document.getElementById('h-off').innerText = res.stats.hari.off || 0;
-          document.getElementById('h-rank-off').innerText = res.stats.hari.rank_off || "-";
-          
-          document.getElementById('b-trip').innerText = res.stats.bulan.total || 0;
-          document.getElementById('b-rank').innerText = res.stats.bulan.rank_tot || "-";
-          document.getElementById('b-on').innerText = res.stats.bulan.on || 0;
-          document.getElementById('b-rank-on').innerText = res.stats.bulan.rank_on || "-";
-          document.getElementById('b-off').innerText = res.stats.bulan.off || 0;
-          document.getElementById('b-rank-off').innerText = res.stats.bulan.rank_off || "-";
+    function filterKategori(catName, chipId) {
+      document.querySelectorAll('.chip').forEach(el => el.style.background = '#D1D1D1');
+      const activeChip = document.getElementById(chipId);
+      if(activeChip) activeChip.style.background = '#FFD700';
 
-          masterTarif = res.listTarif || [];
-          if (res.rekening) { curRider.rekening = res.rekening; }
-
-          if (typeof renderRiwayat === 'function') renderRiwayat(res.riwayat);
-          
-          var seen = {};
-          var cats = [];
-          for (var i = 0; i < masterTarif.length; i++) {
-            var cName = masterTarif[i].kategori;
-            if (!seen[cName]) { seen[cName] = true; cats.push(cName); }
-          }
-
-          if (cats.length > 0) {
-            document.getElementById('cat-list').innerHTML = cats.map(function(cat) {
-              return '<div class="chip" onclick="renderGrid(\'' + cat + '\')">' + cat + '</div>';
-            }).join('');
-            renderGrid(cats[0]);
-          }
-        })
-        .catch(function(err) {
-          showLoading(false);
-          toast("⚠️ Gagal memuat data dashboard.");
-        });
+      const grid = document.getElementById('grid-list');
+      const filtered = LIST_TARIF_GLOBAL.filter(t => t.kategori === catName);
+      
+      const gridFragment = document.createDocumentFragment();
+      filtered.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'service-card';
+        div.onclick = () => addToCart(item.layanan, item.nominal, item.potongan);
+        div.innerHTML = `<b>${item.layanan}</b><span>Rp ${Number(item.nominal).toLocaleString('id-ID')}</span>`;
+        gridFragment.appendChild(div);
+      });
+      grid.innerHTML = ""; grid.appendChild(gridFragment);
     }
 
     function pressNum(v) {
-      if (v === 'C') curNomStr = "0";
-      else if (v === '⌫') curNomStr = curNomStr.length > 1 ? curNomStr.slice(0, -1) : "0";
-      else { if (curNomStr === "0") curNomStr = v; else curNomStr += v; }
-      document.getElementById('m-nom').value = "Rp " + formatRibuan(curNomStr);
-    }
-
-    function renderGrid(cat) {
-      var f = masterTarif.filter(function(x) { return x.kategori === cat; });
-      document.getElementById('grid-list').innerHTML = f.map(function(i) {
-        return '<div class="service-card" onclick="hitService(\'' + i.layanan + '\', ' + i.nominal + ', ' + i.potongan + ')"><b>' + i.layanan + '</b><span>Rp ' + Number(i.nominal).toLocaleString() + '</span></div>';
-      }).join('');
-    }
-
-    function hitService(ket, nom, pot) {
-      var ketUpper = ket.toUpperCase();
-      var nominalFix = ketUpper.indexOf("HP ADMIN") !== -1 ? 10000 : nom;
-      var potonganFix = ketUpper.indexOf("HP ADMIN") !== -1 ? 0.2 : (pot || 0);
+      if(v === 'C') { currentNum = ""; }
+      else if(v === '⌫') { currentNum = currentNum.slice(0, -1); }
+      else { if(currentNum.length < 9) currentNum += v; }
       
-      pendingItem = { ket: ketUpper, nominal: nominalFix, qty: 1, potongan: potonganFix };
-      if (ketUpper.indexOf("HP ADMIN") !== -1) { finalProcess('HP ADMIN', [pendingItem]); } else { executeAddToCart(); }
+      const val = currentNum === "" ? 0 : parseInt(currentNum);
+      document.getElementById('m-nom').value = val === 0 ? "Rp 0" : "Rp " + val.toLocaleString('id-ID');
     }
 
     function openKetManual() {
-      if (getAngka(curNomStr) <= 0) return toast("⚠️ Isi Nominal!");
+      const val = currentNum === "" ? 0 : parseInt(currentNum);
+      if(val <= 0) return showToast("Input nominal dulu!");
+      document.getElementById('m-input-ket').value = "";
       document.getElementById('m-ket-manual').style.display = 'block';
     }
 
     function submitKetManual() {
-      var inputKet = document.getElementById('m-input-ket');
-      var ketRaw = inputKet.value.trim();
-      var ket = ketRaw.toLowerCase();
-      if (!ketRaw) return toast("⚠️ Isi keterangan belanja!");
+      const ket = document.getElementById('m-input-ket').value.trim();
+      if(!ket) return showToast("Masukkan keterangan!");
+      addToCart(ket, parseInt(currentNum), 0);
       document.getElementById('m-ket-manual').style.display = 'none';
-
-      if (ket === "hp admin") {
-        pendingItem = { ket: "HP ADMIN", nominal: 10000, qty: 1, potongan: 0.2 };
-        finalProcess('HP ADMIN', [pendingItem]);
-      } else {
-        var keywords = ["ongkir", "ongkos", "tarif", "tarip", "fee", "jasa"];
-        var isRev = false;
-        
-        // Logika menggunakan Regex untuk memastikan kata kunci berdiri sendiri
-        for (var i = 0; i < keywords.length; i++) {
-          var regex = new RegExp("\\b" + keywords[i] + "\\b", "i");
-          if (regex.test(ket)) { 
-            isRev = true; 
-            break; 
-          }
-        }
-
-        pendingItem = { ket: ketRaw.toUpperCase(), nominal: getAngka(curNomStr), qty: 1, potongan: isRev ? 0.2 : 0 };
-        if (isRev) {
-          document.getElementById('confirm-msg').innerHTML = "Layanan '" + ketRaw + "' memotong komisi 20%.";
-          document.getElementById('m-confirm').style.display = 'block';
-        } else { 
-          executeAddToCart(); 
-        }
-      }
-      inputKet.value = "";
+      currentNum = ""; document.getElementById('m-nom').value = "Rp 0";
     }
 
-    function executeAddToCart() {
-      document.getElementById('m-confirm').style.display = 'none';
-      var idx = -1;
-      for (var i = 0; i < cart.length; i++) { if (cart[i].ket === pendingItem.ket) { idx = i; break; } }
-      if (idx > -1) cart[idx].qty++; else cart.push(pendingItem);
-      
-      try { localStorage.setItem('kukami_cart', JSON.stringify(cart)); } catch(e) {}
-      renderCart(); toast("✅ Ditambah"); curNomStr = "0"; document.getElementById('m-nom').value = "Rp 0";
+    function addToCart(ket, nom, pot) {
+      const idx = CART.findIndex(i => i.ket === ket);
+      if(idx !== -1) { CART[idx].qty++; } 
+      else { CART.push({ ket: ket, nominal: parseInt(nom), potongan: parseFloat(pot || 0), qty: 1 }); }
+      updateCartFloat();
+      showToast("Ditambahkan: " + ket);
     }
 
-    function renderCart() {
-      document.getElementById('cart-float').style.display = cart.length ? 'block' : 'none';
-      var tot = 0;
-      for (var i = 0; i < cart.length; i++) { tot += (cart[i].nominal * cart[i].qty); }
-      document.getElementById('c-qty').innerText = cart.length;
-      document.getElementById('c-total').innerText = "Rp " + tot.toLocaleString();
-      
-      document.getElementById('c-list').innerHTML = cart.map(function(i, idx) {
-        return '<div class="cart-row"><div style="flex:1;"><b>' + i.ket + '</b><br><small>Rp ' + i.nominal.toLocaleString() + '</small></div><div style="display:flex; align-items:center; gap:8px;"><button class="qty-btn" onclick="updateQty(' + idx + ', -1)">-</button><span style="font-weight:bold; min-width:20px; text-align:center;">' + i.qty + '</span><button class="qty-btn" onclick="updateQty(' + idx + ', 1)">+</button><button onclick="removeItem(' + idx + ')" style="border:none;background:none;color:red;font-size:18px;">🗑</button></div></div>';
-      }).join('');
+    function updateCartFloat() {
+      const totalQty = CART.reduce((a, b) => a + b.qty, 0);
+      const totalNom = CART.reduce((a, b) => a + (b.nominal * b.qty), 0);
+      if(totalQty > 0) {
+        document.getElementById('c-qty').innerText = totalQty;
+        document.getElementById('c-total').innerText = "Rp " + totalNom.toLocaleString('id-ID');
+        document.getElementById('cart-float').style.display = 'block';
+      } else { document.getElementById('cart-float').style.display = 'none'; }
     }
 
-    function updateQty(idx, d) { 
-      cart[idx].qty += d; 
-      if (cart[idx].qty <= 0) { cart.splice(idx, 1); } 
-      try { localStorage.setItem('kukami_cart', JSON.stringify(cart)); } catch(e) {}
-      renderCart(); 
+    function showCart() {
+      const list = document.getElementById('c-list');
+      list.innerHTML = CART.map((item, idx) => `
+        <div class="cart-row">
+          <div style="flex:1; padding-right:10px;">
+            <div style="font-size:13px; font-weight:bold;">${item.ket}</div>
+            <div style="font-size:11px; color:var(--maroon);">Rp ${item.nominal.toLocaleString('id-ID')}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button class="qty-btn" onclick="updateQty(${idx}, -1)">-</button>
+            <b style="font-size:14px; min-width:15px; text-align:center;">${item.qty}</b>
+            <button class="qty-btn" onclick="updateQty(${idx}, 1)">+</button>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('m-cart').style.display = 'block';
     }
-    
-    function removeItem(idx) { 
-      cart.splice(idx, 1); 
-      try { localStorage.setItem('kukami_cart', JSON.stringify(cart)); } catch(e) {}
-      renderCart(); 
-      if (!cart.length) document.getElementById('m-cart').style.display = 'none'; 
+
+    function updateQty(idx, change) {
+      CART[idx].qty += change;
+      if(CART[idx].qty <= 0) CART.splice(idx, 1);
+      updateCartFloat();
+      if(CART.length === 0) tutupKeranjang(); else showCart();
     }
-    
-    function showCart() { document.getElementById('m-cart').style.display = 'block'; renderCart(); setTimeout(cekValidasiQty, 300); }
     function tutupKeranjang() { document.getElementById('m-cart').style.display = 'none'; }
-    function closeConfirm() { document.getElementById('m-confirm').style.display = 'none'; pendingItem = null; }
 
-    // 🌟 3. PERUBAHAN FUNGSI FINAL PROCESS MENGGUNAKAN API FETCH
-    function finalProcess(tipe, overrideItems) {
-      var itemsToSubmit = overrideItems || cart;
-      if (itemsToSubmit.length === 0) return toast("⚠️ Keranjang kosong!");
-      document.getElementById('m-cart').style.display = 'none';
-      showLoading(true);
-
-      var paramTransaksi = { 
-        idRider: curRider.id, 
-        namaRider: curRider.nama, 
-        items: itemsToSubmit, 
-        tipe: tipe, 
-        deviceInfo: navigator.userAgent 
-      };
-      
-      KUKAMI_API("simpanTransaksi", paramTransaksi)
-        .then(function(res) {
-          showLoading(false);
-          toast("✅ Berhasil!");
-          var itemsCopy = JSON.parse(JSON.stringify(itemsToSubmit));
-          if (!overrideItems) { 
-            cart = []; 
-            try { localStorage.removeItem('kukami_cart'); } catch(e) {}
-            renderCart(); 
-          }
-          initDashboard();
-          
-          if (!res) res = {};
-          res.tipe = tipe; 
-          showStruk(res, itemsCopy, false, "OK");
-        })
-        .catch(function(err) {
-          showLoading(false);
-          toast("⚠️ Gagal menyimpan transaksi.");
-        });
+    function finalProcess(tipe) {
+      const hasHighQty = CART.some(item => item.qty > 1);
+      tutupKeranjang();
+      if(hasHighQty) {
+        document.getElementById('m-alert').style.display = 'block';
+        window.tempTipeOrder = tipe; 
+      } else { kirimTransaksiValid(tipe); }
     }
 
-    function renderRiwayat(data) {
-      var h = '', lastD = '';
-      if (!data || !data.length) return document.getElementById('list-riwayat').innerHTML = '<div style="padding:30px; text-align:center; color:#888;">Belum ada riwayat</div>';
-      
-      data.forEach(function(i, idx) {
-        if (i.tglDisplay !== lastD) { h += '<div class="date-separator"><span>' + i.tglDisplay + '</span><div class="date-line"></div></div>'; lastD = i.tglDisplay; }
-        var tClass = i.tipe.toLowerCase();
-        if (i.ket.toUpperCase().indexOf("HP ADMIN") !== -1) tClass = "hp";
-        if (i.tipe.toUpperCase() === "TOPUP") tClass = "topup";
-        
-        var htmlTagStatus = '<span class="hl-tag hl-' + tClass + '">' + i.tipe + '</span>';
-        var gayaNominalTeks = 'color: var(--maroon); font-weight: bold; font-size: 12px;';
-        var statusMurni = i.status ? i.status.toUpperCase() : "OK";
-
-        if (i.tipe.toUpperCase() !== "TOPUP") {
-          if (statusMurni.indexOf("PENDING CANCEL") !== -1) {
-            htmlTagStatus += '<span class="hl-tag" style="background:#FFA500; color:white;">⏳ MENUNGGU APPROVAL CANCEL</span>';
-          } else if (statusMurni === "CANCELED") {
-            htmlTagStatus += '<span class="hl-tag" style="background:#CE1212; color:white;">❌ CANCELED</span>';
-            gayaNominalTeks += ' text-decoration: line-through; color: #cc0000; opacity: 0.5;';
-          }
-        } else {
-          // 🌟 LOGIKA BARU TOP UP: Menunggu Admin ketik "OK" 🌟
-          if (statusMurni === "PENDING" || statusMurni === "") {
-            htmlTagStatus = '<span class="hl-tag hl-topup" style="background:#FFA500;">⏳ MENUNGGU APPROVAL ADMIN</span>';
-          } else if (statusMurni === "OK" || statusMurni === "APPROVED" || statusMurni.indexOf("BERHASIL") !== -1) {
-            htmlTagStatus = '<span class="hl-tag hl-topup" style="background:#28a745;">✅ TOP UP BERHASIL</span>';
-          } else {
-            htmlTagStatus = '<span class="hl-tag hl-topup" style="background:#666;">' + statusMurni + '</span>';
-          }
-        }
-        
-        h += '<div class="item-r" onclick="cetakUlangStruk(' + idx + ', true)" style="cursor: pointer;"><div style="flex: 1; padding-right: 10px; font-size: 10px;"><div style="color: #888; margin-bottom: 3px;">' + i.jam + ' | <span style="font-weight: bold; color: #333;">' + i.id + '</span></div><div style="color: #333; margin-bottom: 5px; line-height: 1.3;">' + i.ket + '</div><div>' + htmlTagStatus + '</div></div><div style="text-align: right; min-width: 85px; padding-top: 2px;"><span style="' + gayaNominalTeks + '">Rp ' + Number(i.nom).toLocaleString() + '</span></div></div>';
-      });
-      document.getElementById('list-riwayat').innerHTML = h;
-      window.globalRiwayatData = data;
+    function tutupAlert() {
+      document.getElementById('m-alert').style.display = 'none';
+      if(window.tempTipeOrder) {
+        kirimTransaksiValid(window.tempTipeOrder);
+        window.tempTipeOrder = null;
+      }
     }
 
-    function cetakUlangStruk(idx, berasalDariRiwayat) {
+    async function kirimTransaksiValid(tipe) {
+      showLoader();
       try {
-        var dataSelected = window.globalRiwayatData ? window.globalRiwayatData[idx] : null;
-        if (!dataSelected) return toast("⚠️ Gagal memuat data riwayat.");
-        if (dataSelected.tipe.toUpperCase() === "TOPUP") { return toast("ℹ️ Transaksi Top Up tidak memiliki struk belanja."); }
-        
-        showLoading(true);
-        var rawItems = dataSelected.ket ? dataSelected.ket.split(",") : [];
-        var itemsForStruk = [];
-        
-        rawItems.forEach(function(txt) {
-          var cleanTxt = txt.trim();
-          if (cleanTxt === "") return;
-          var qty = 1, namaBarang = cleanTxt, hargaAsli = 0;
-          if (cleanTxt.indexOf("|") !== -1) {
-            var splitHarga = cleanTxt.split("|");
-            cleanTxt = splitHarga[0].trim();
-            hargaAsli = Number(splitHarga[1]) || 0;
-          }
-          if (cleanTxt.indexOf("x ") !== -1) { 
-            var parts = cleanTxt.split("x "); 
-            qty = Number(parts[0]) || 1; namaBarang = parts[1] || cleanTxt; 
-          } else if (cleanTxt.indexOf("x") !== -1) { 
-            var parts = cleanTxt.split("x"); 
-            qty = Number(parts[0]) || 1; namaBarang = parts[1] || cleanTxt; 
-          }
-          itemsForStruk.push({ ket: namaBarang.toUpperCase(), qty: qty, nominal: hargaAsli });
-        });
+        const res = await KUKAMI_API("simpanTransaksi", { idRider: RIDER_INFO.id, tipe: tipe, items: CART });
+        if(res.status === "success") {
+          CART = []; updateCartFloat(); showToast("Transaksi Berhasil!");
+          
+          document.getElementById('s-rider').innerText = RIDER_INFO.nama;
+          document.getElementById('s-inv').innerText = res.nota;
+          document.getElementById('s-tipe').innerText = tipe;
+          document.getElementById('s-tgl').innerText = res.waktu;
+          
+          const sItems = document.getElementById('s-items');
+          sItems.innerHTML = res.itemsData ? res.itemsData.map(i => `
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span>${i.qty}x ${i.ket}</span><span>Rp ${Number(i.sub).toLocaleString('id-ID')}</span>
+            </div>
+          `).join('') : `<div style="text-align:center; color:#666;">Detail sukses tersimpan di server log.</div>`;
+          
+          document.getElementById('s-total').innerText = "Rp " + res.total.toLocaleString('id-ID');
+          
+          const linkRating = `${API_URL.split('/exec')[0]}/exec?page=rating&inv=${res.nota}&rider=${RIDER_INFO.id}`;
+          const qrBox = document.getElementById('struk-qrcode'); qrBox.innerHTML = "";
+          if(qrcodeInstance) qrcodeInstance.clear();
+          qrcodeInstance = new QRCode(qrBox, { text: linkRating, width: 150, height: 150, correctLevel: QRCode.CorrectLevel.M });
 
-        var resTiruan = { nota: dataSelected.id, total: Number(dataSelected.nom), waktu: dataSelected.jam, tipe: dataSelected.tipe };
-        
-        showLoading(false);
-        showStruk(resTiruan, itemsForStruk, berasalDariRiwayat, dataSelected.status);
-      } catch(err) {
-        showLoading(false); toast("⚠️ Gagal memuat struk.");
-      }
+          document.getElementById('m-struk').style.display = 'block';
+          isRiwayatLoaded = false;
+        } else { alert("Gagal: " + res.message); }
+      } catch(e) { showToast("Error memproses transaksi!"); }
+      finally { hideLoader(); }
     }
 
-    function showStruk(res, items, berasalDariRiwayat, statusTransaksi) {
-      document.getElementById('s-inv').innerText = res.nota;
-      document.getElementById('s-rider').innerText = curRider.nama;
-      document.getElementById('s-tipe').innerText = res.tipe ? res.tipe.toUpperCase() : "-";
-      
-      // 🌟 PERUBAHAN PENTING UNTUK LINK QR RATING DI GITHUB
-      var currentUrl = window.location.origin + window.location.pathname;
-      var baseUrl = currentUrl.replace('index.html', '').replace('Index.html', '');
-      if (!baseUrl.endsWith('/')) baseUrl += '/';
-      var linkRatingText = baseUrl + "rating.html?inv=" + encodeURIComponent(res.nota) + "&rider=" + encodeURIComponent(curRider.id);
-      
-      var qrContainer = document.getElementById('struk-qrcode');
-      if (qrContainer) {
-        qrContainer.innerHTML = ""; 
-        new QRCode(qrContainer, { text: linkRatingText, width: 150, height: 150, colorDark : "#000000", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.M });
-      }
-  
-      var raw = res.waktu || "";
-      var clean = raw.replace(/WIB/g, "").trim();
-      var finalWaktu = "";
-      if (clean.indexOf("/") !== -1 || clean.indexOf("-") !== -1) { finalWaktu = clean.replace(" ", " | ") + " WIB"; } 
-      else { var d = new Date(); var opsi = { day: 'numeric', month: 'long', year: 'numeric' }; finalWaktu = d.toLocaleDateString('id-ID', opsi) + " | " + clean + " WIB"; }
-      document.getElementById('s-tgl').innerText = finalWaktu;
-      
-      var h = '';
-      if (!items || items.length === 0) {
-        h += '<div style="margin-bottom:10px; font-family: \'Inter\', sans-serif;"><div style="display:flex; justify-content:space-between; font-weight:bold; color:#000;"><span>' + res.tipe.toUpperCase() + '</span><span>Rp ' + res.total.toLocaleString() + '</span></div></div>';
-      } else {
-        items.forEach(function(i) {
-          if (i.nominal > 0) {
-            var subTotalItem = i.nominal * i.qty;
-            h += '<div style="margin-bottom:12px; font-family: \'Inter\', sans-serif;">' +
-                   '<div style="display:flex; justify-content:space-between; font-weight:bold; color:#000; margin-bottom:2px;"><span>' + i.ket + '</span><span>Rp ' + subTotalItem.toLocaleString() + '</span></div>' +
-                   '<div style="font-size:10px; color:#666;">' + i.qty + ' x Rp ' + i.nominal.toLocaleString() + '</div>' +
-                 '</div>';
-          } else {
-            if (items.length === 1) {
-              h += '<div style="margin-bottom:12px; font-family: \'Inter\', sans-serif;"><div style="display:flex; justify-content:space-between; font-weight:bold; color:#000; margin-bottom:2px;"><span>' + i.ket + '</span><span>Rp ' + res.total.toLocaleString() + '</span></div><div style="font-size:10px; color:#666;">' + i.qty + ' x Rp ' + res.total.toLocaleString() + '</div></div>';
-            } else {
-              h += '<div style="margin-bottom:10px; font-family: \'Inter\', sans-serif; font-weight:bold; color:#000; border-bottom: 1px solid #f9f9f9; padding-bottom:4px;"><span>' + i.qty + 'x ' + i.ket + '</span></div>';
-            }
-          }
-        });
-      }
-      
-      document.getElementById('s-items').innerHTML = h;
-      document.getElementById('s-total').innerText = "Rp " + res.total.toLocaleString();
+    function closeStruk() {
+      document.getElementById('m-struk').style.display = 'none';
+      document.getElementById('container-form-cancel').style.display = 'none';
+      initDashboard();
+    }
 
-      var areaTombolBatal = document.getElementById('area-tombol-cancel-kukami');
-      var formCancelKukami = document.getElementById('container-form-cancel');
-      var inputAlasanKukami = document.getElementById('input-alasan-cancel');
-      
-      if (formCancelKukami) { formCancelKukami.style.display = 'none'; }
-      if (inputAlasanKukami) { inputAlasanKukami.value = ''; }
+    function renderRiwayatList(data) {
+      const container = document.getElementById('list-riwayat');
+      if(!data || data.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:40px; color:#666; font-weight:bold;">Belum ada riwayat.</div>`;
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      let lastDate = "";
+      data.forEach(r => {
+        if(r.tglDisplay !== lastDate) {
+          lastDate = r.tglDisplay;
+          const sep = document.createElement('div'); sep.className = 'date-separator';
+          sep.innerHTML = `<span>${r.tglDisplay}</span><div class="date-line"></div>`;
+          fragment.appendChild(sep);
+        }
+        let tagClass = r.tipe === "OFFLINE" ? "hl-offline" : (r.tipe === "TOPUP" ? "hl-topup" : "hl-online");
+        const item = document.createElement('div'); item.className = 'item-r';
+        item.style.borderLeftColor = r.tipe === 'TOPUP' ? 'var(--green)' : 'var(--maroon)';
+        item.innerHTML = `
+          <div>
+            <div style="font-size:12px; font-weight:800; color:#111; margin-bottom:4px;">${r.ket}</div>
+            <div style="display:flex; align-items:center; font-size:10px; color:#666;">
+              <span class="hl-tag ${tagClass}">${r.tipe}</span><span>${r.jam}</span>
+              <span style="margin-left:8px; font-family:monospace; font-weight:bold; color:var(--grey);">${r.id}</span>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <span style="font-size:13px; font-weight:900; color:${r.tipe==='TOPUP'?'var(--green)':'#000'};">
+              ${r.tipe==='TOPUP'?'+':''}Rp ${Number(r.nom).toLocaleString('id-ID')}
+            </span>
+            <div style="font-size:9px; font-weight:bold; color:${r.status==='OK'||r.status==='APPROVED'?'var(--green)':'red'}; margin-top:4px;">${r.status || 'OK'}</div>
+          </div>
+        `;
+        fragment.appendChild(item);
+      });
+      container.innerHTML = ""; container.appendChild(fragment);
+    }
 
-      if (areaTombolBatal) {
-        var statUpper = statusTransaksi ? statusTransaksi.toUpperCase() : "OK";
-        if (!berasalDariRiwayat) {
-          areaTombolBatal.style.display = 'none';
-        } else {
-          areaTombolBatal.style.display = 'block';
-          if (statUpper.indexOf("PENDING CANCEL") !== -1) {
-            areaTombolBatal.innerHTML = '<div style="background:#FFA500; color:white; text-align:center; padding:12px; border-radius:12px; font-weight:bold; font-size:12px; margin-top:10px;">⏳ MENUNGGU APPROVAL CANCEL ADMIN</div>';
-          } else if (statUpper === "CANCELED") {
-            areaTombolBatal.innerHTML = '<div style="background:#666; color:white; text-align:center; padding:12px; border-radius:12px; font-weight:bold; font-size:12px; margin-top:10px;">❌ STRUK INI SUDAH DIBATALKAN</div>';
-          } else {
-            areaTombolBatal.innerHTML = '<button type="button" onclick="tampilkanFormCancel()" style="background:#CE1212; color:white; border:none; width:100%; padding:14px; border-radius:50px; font-weight:bold; font-size:14px; cursor:pointer; margin-top:15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">⚠️ AJUKAN PEMBATALAN STRUK</button>';
-          }
+    async function switchMainTab(tab) {
+      document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      if(tab === 'home') {
+        document.getElementById('p-home').style.display = 'block';
+        document.getElementById('n-home').classList.add('active');
+        updateCartFloat();
+      } else if(tab === 'riwayat') {
+        document.getElementById('p-riwayat').style.display = 'block';
+        document.getElementById('n-riwayat').classList.add('active');
+        document.getElementById('cart-float').style.display = 'none';
+        if(!isRiwayatLoaded) {
+          showLoader();
+          try {
+            const res = await KUKAMI_API("getRiwayatData", { id: RIDER_INFO.id, offset: 0 });
+            if(res && res.riwayat) { renderRiwayatList(res.riwayat); isRiwayatLoaded = true; }
+          } catch(e) { showToast("Gagal memuat riwayat"); }
+          finally { hideLoader(); }
         }
       }
-      document.getElementById('m-struk').style.display = 'block';
     }
 
-    function printStruk() {
-      showLoading(true);
-      html2canvas(document.getElementById("struk-area"), { scale: 2, useCORS: true }).then(function(canvas) {
-        showLoading(false);
-        var link = document.createElement('a');
-        link.download = 'STRUK_KUKAMI.png';
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      }).catch(function() { showLoading(false); toast("⚠️ Gagal memproses gambar."); });
-    }
-    
-    // 🌟 4. LOGIKA SHARE OTOMATIS GITHUB & FALLBACK AMAN
-    function shareStruk() {
-      var area = document.getElementById('struk-area');
-      showLoading(true);
-      
-      html2canvas(area, { scale: 2, useCORS: true }).then(function(canvas) {
-        canvas.toBlob(function(blob) {
-          if (!blob) { showLoading(false); toast("⚠️ Gagal memproses Struk."); return; }
-          var file = new File([blob], 'Struk_KUKAMI.png', { type: 'image/png' });
-          var invActive = document.getElementById('s-inv').innerText;
-          
-          var currentUrl = window.location.origin + window.location.pathname;
-          var baseUrl = currentUrl.replace('index.html', '').replace('Index.html', '');
-          if (!baseUrl.endsWith('/')) baseUrl += '/';
-          var longUrl = baseUrl + "rating.html?inv=" + encodeURIComponent(invActive) + "&rider=" + encodeURIComponent(curRider.id);
-
-          var textCaption = "Amanah akan segera disampaikan. Mohon ditunggu ya...\n\n";
-          var nomorRekening = "";
-          if (curRider && curRider.rekening) { nomorRekening = curRider.rekening.toString().trim(); }
-          if (nomorRekening !== "") { textCaption += "Jika ingin transfer bisa ke:\n" + nomorRekening + "\n\n"; }
-          textCaption += "Mohon luangkan waktu 5 detik untuk memberikan penilaian pelayanan Rider kami melalui link resmi KUKAMI di bawah ini:\n👉 " + longUrl;
-
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            navigator.share({ files: [file], text: textCaption, title: 'Struk KUKAMI' })
-              .then(function() { showLoading(false); })
-              .catch(function(err) { 
-                showLoading(false); 
-                if (err.name !== 'AbortError' && err.name !== 'NotAllowedError') {
-                   console.error(err); toast("⚠️ Gagal share.");
-                }
-              });
-          } else { 
-            showLoading(false); 
-            // Fallback download
-            const a = document.createElement('a');
-            a.href = canvas.toDataURL("image/png");
-            a.download = 'Struk_KUKAMI.png';
-            a.click();
-            toast("Sistem share ditolak, otomatis mendownload."); 
-          }
-        });
-      }).catch(function(err) { showLoading(false); toast("⚠️ Gagal mencetak gambar."); });
+    function setSubTab(tabNum) {
+      document.getElementById('tb1').className = tabNum === 1 ? "tab-btn tab-active" : "tab-btn tab-inactive";
+      document.getElementById('tb2').className = tabNum === 2 ? "tab-btn tab-active" : "tab-btn tab-inactive";
+      document.getElementById('f-manual').style.display = tabNum === 1 ? "block" : "none";
+      document.getElementById('f-tarif').style.display = tabNum === 2 ? "block" : "none";
     }
 
-    function closeStruk() { document.getElementById('m-struk').style.display = 'none'; }
+    async function saveTopUp() {
+      const nom = parseInt(document.getElementById('u-nom').value);
+      const met = document.getElementById('u-met').value;
+      const ketLain = document.getElementById('u-ket-lainnya').value.trim();
+      if(!nom || nom <= 0 || !met) return showToast("Lengkapi data top up!");
+      if(met === "LAIN LAIN" && !ketLain) return showToast("Detail keterangan wajib diisi!");
 
-    function tampilkanFormCancel() {
-      var containerForm = document.getElementById('container-form-cancel');
-      if (!containerForm) return;
-      if (containerForm.style.display === 'none' || containerForm.style.display === '') {
-        containerForm.style.display = 'block';
-        containerForm.scrollIntoView({ behavior: 'smooth' });
-      } else { containerForm.style.display = 'none'; }
-    }
-
-    // 🌟 5. PERUBAHAN FUNGSI CANCEL STRUK MENGGUNAKAN API FETCH (AUTO-REDIRECT RIWAYAT)
-    function kirimPengajuanCancel(idStruk) {
-      var alasanInput = document.getElementById('input-alasan-cancel').value.trim();
-      if (alasanInput.length < 10) { alert("❌ Alasan terlalu pendek! Minimal 10 karakter."); return; }
-      if (!confirm("Apakah Anda yakin ingin mengajukan pembatalan untuk Struk #" + idStruk + "?")) { return; }
-      showLoading(true);
-      
-      KUKAMI_API("ajukanPembatalanStrukRider", { idStruk: idStruk, idRider: curRider.id, alasan: alasanInput })
-        .then(function(res) {
-          showLoading(false);
-          if (res && res.status === "success") {
-            // Layar akan berhenti di sini sampai Rider klik "OK"
-            alert("✅ " + res.message);
-            
-            // 🌟 SUNTIKAN REDIRECT OTOMATIS SETELAH KLIK OK
-            closeStruk(); // 1. Menutup pop-up struk
-            switchMainTab('riwayat'); // 2. Memindahkan layar ke Tab Riwayat
-            
-            // Refresh data di background agar status di Riwayat langsung berubah jadi "Menunggu Approval"
-            initDashboard(); 
-          } else { 
-            alert("❌ Gagal: " + (res.message || "Terjadi kesalahan.")); 
-          }
-        })
-        .catch(function(err) {
-          showLoading(false); 
-          alert("❌ Gagal terhubung ke server."); 
-        });
+      showLoader();
+      try {
+        let metodeFinal = met === "LAIN LAIN" ? "LAIN-LAIN: " + ketLain : met;
+        const res = await KUKAMI_API("requestTopUp", { idRider: RIDER_INFO.id, nominal: nom, metode: metodeFinal });
+        if(res.status === "success") {
+          alert(`✅ BERHASIL!\nTop Up Rp ${nom.toLocaleString('id-ID')} terkirim.`);
+          document.getElementById('m-topup').style.display = 'none';
+          document.getElementById('u-nom').value = ""; document.getElementById('u-met').value = "";
+          document.getElementById('u-ket-lainnya').value = ""; document.getElementById('container-ket-lainnya').style.display = 'none';
+          isRiwayatLoaded = false; initDashboard();
+        }
+      } catch(e) { showToast("Gagal memproses top up"); }
+      finally { hideLoader(); }
     }
 
     function cekMetodeTopUp() {
+      document.getElementById('container-ket-lainnya').style.display = (document.getElementById('u-met').value === "LAIN LAIN") ? "block" : "none";
+    }
+    function tampilkanFormCancel() { document.getElementById('container-form-cancel').style.display = 'block'; }
+
+    async function kirimPengajuanCancel(idStruk) {
+      const alasan = document.getElementById('input-alasan-cancel').value.trim();
+      if(!alasan) return alert("Alasan harus diisi!");
+      showLoader();
       try {
-        var met = document.getElementById('u-met').value;
-        var boxLainnya = document.getElementById('container-ket-lainnya');
-        if (boxLainnya) {
-          if (met === "LAIN LAIN") { boxLainnya.style.display = 'block'; } 
-          else { boxLainnya.style.display = 'none'; document.getElementById('u-ket-lainnya').value = ""; }
-        }
-      } catch(e) {}
+        const res = await KUKAMI_API("ajukanPembatalanStrukRider", { idStruk: idStruk, idRider: RIDER_INFO.id, alasan: alasan });
+        alert(res.message); if(res.status === "success") closeStruk();
+      } catch(e) { showToast("Gagal mengirim pembatalan"); }
+      finally { hideLoader(); }
     }
 
-    // 🌟 6. PERUBAHAN FUNGSI TOP UP MENGGUNAKAN API FETCH
-    function saveTopUp() {
-      var nom = getAngka(document.getElementById('u-nom').value);
-      var met = document.getElementById('u-met').value;
-      var ketLainnya = document.getElementById('u-ket-lainnya') ? document.getElementById('u-ket-lainnya').value.trim() : "";
-
-      if (nom <= 0) return toast("⚠️ Isi nominal!");
-      if (!met) return toast("⚠️ Pilih metode!");
-      if (met === "LAIN LAIN" && ketLainnya.length < 5) {
-        alert("❌ Mohon isi penjelasan TOP UP CASH / DEPO secara detail!");
-        return;
-      }
-
-      var metodeFinal = met;
-      if (met === "LAIN LAIN") { metodeFinal = "LAIN LAIN: " + ketLainnya.toUpperCase(); }
-
-      document.getElementById('m-topup').style.display = 'none';
-      showLoading(true);
-
-      KUKAMI_API("requestTopUp", { idRider: curRider.id, namaRider: curRider.nama, nominal: nom, metode: metodeFinal })
-        .then(function(res) { 
-          showLoading(false); 
-          
-          // 1. Generate Link WA
-          var myFp = getFingerprint(); 
-          // ⚠️ PENTING: Ganti ID_DEPLOYMENT_ANDA dengan URL Web App Anda
-          // Di dalam saveTopUp, ganti bagian linkApprove dengan ini:
-var linkApprove = "https://script.google.com/macros/s/AKfycbyEkyDlxRn70bnji5TWeYG0GmLVb-MG_JITCHxZMEn4fISlQowYnbjSSUyflLovjM6BXA/exec?action=approve&invoice=" + res.nota;
-
-          var pesan = `*REQUEST TOP UP KUKAMI*%0A%0A` +
-                      `Nama: *${curRider.nama}*%0A` +
-                      `Nominal: *Rp ${nom.toLocaleString()}*%0A` +
-                      `Invoice: *${res.nota}*%0A%0A` +
-                      `Dibawah ini lampiran bukti transfernya%0A` +
-                      linkApprove;
-
-          window.open("https://wa.me/6289630042391?text=" + pesan, '_blank');
-          
-          // 2. Reset Form
-          document.getElementById('u-nom').value = "";
-          document.getElementById('u-met').selectedIndex = 0;
-          if(document.getElementById('container-ket-lainnya')) document.getElementById('container-ket-lainnya').style.display = 'none';
-          
-          // 3. Pindah Tab & Refresh
-          switchMainTab('riwayat');
-          initDashboard(); 
-        })
-        .catch(function(err) {
-          showLoading(false);
-          toast("⚠️ Gagal mengirim Top Up.");
-        });
+    function shareStruk() {
+      const inv = document.getElementById('s-inv').innerText;
+      window.open(`https://wa.me/?text=${encodeURIComponent('*STRUK BELANJA KUKAMI DELIVERY*\nNo. Nota: ' + inv)}`, '_blank');
     }
-    
-    function logout() { if (confirm("Logout?")) { localStorage.clear(); location.reload(); } }
 
-    window.onload = function() {
-      var debug = document.getElementById('debug-layar');
-      try {
-        localStorage.setItem('tes_koneksi', 'ok');
-        localStorage.removeItem('tes_koneksi');
-        
-        var s = localStorage.getItem('kukami_session');
-        if (s) { try { curRider = JSON.parse(s); initDashboard(); } catch(e) {} }
-        
-        var savedCart = localStorage.getItem('kukami_cart');
-        if (savedCart) {
-          try {
-            var parsed = JSON.parse(savedCart);
-            if (Array.isArray(parsed) && parsed.length > 0) { cart = parsed; renderCart(); }
-          } catch(e) {}
-        }
-        var elNom = document.getElementById('u-nom');
-        if (elNom) elNom.addEventListener('input', function() { this.value = formatRibuan(this.value); });
-      } catch (error) { if (debug) debug.innerText = "⚠️ MEMORI LOKAL DIBLOKIR SISTEM HP"; }
-    };
+    function printStruk() {
+      showLoader();
+      html2canvas(document.getElementById('struk-area'), { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `Struk-${document.getElementById('s-inv').innerText}.png`;
+        link.href = canvas.toDataURL(); link.click(); hideLoader(); showToast("Struk Disimpan!");
+      }).catch(() => { hideLoader(); showToast("Gagal menyimpan gambar"); });
+    }
 
-    function cekValidasiQty() {
-      var listOngkir = cart.filter(function(i) { return i.ket.toLowerCase().indexOf("ongkir") !== -1; });
-      var totalQtyOngkir = 0;
-      for (var f = 0; f < listOngkir.length; f++) { totalQtyOngkir += listOngkir[f].qty; }
-      var qtyViolators = cart.filter(function(i) { var k = i.ket.toLowerCase(); return i.qty > 1 && k.indexOf("parkir") === -1 && k.indexOf("tambah tempat") === -1; });
-      var doubleOngkir = totalQtyOngkir > 1; var missingOngkir = totalQtyOngkir === 0; var hasQtyViolation = qtyViolators.length > 0;
-      if (doubleOngkir || missingOngkir || hasQtyViolation) {
-        var alertModal = document.getElementById('m-alert'); if(!alertModal) return;
-        var content = alertModal.querySelector('.m-content');
-        content.style.padding = "30px 20px"; content.style.borderRadius = "24px"; content.style.border = "none";
-        var htmlBody = "";
-        if (missingOngkir) htmlBody += '<b style="color:var(--navy);">❌ Layanan ONGKIR belum ada!</b><br>';
-        if (doubleOngkir) htmlBody += '<b style="color:var(--maroon);">⚠️ ONGKIR lebih dari 1 detected!</b> (Total: ' + totalQtyOngkir + ')<br>';
-        if (hasQtyViolation) htmlBody += '<b style="color:var(--maroon);">⚠️ Qty Layanan > 1:</b> ' + qtyViolators.map(function(v) { return v.ket; }).join(', ') + '<br>';
-        content.innerHTML = '<div style="font-size: 50px; margin-bottom: 15px;">⚠️</div><h3 style="margin: 0 0 10px 0; color: #333; font-family: \'Montserrat\', sans-serif; font-weight: 900; font-size: 18px;">CEK KERANJANG!</h3><div style="color: #666; font-size: 13px; line-height: 1.6; margin-bottom: 25px;">' + htmlBody + '<br>Mohon pastikan kembali pesanan Anda sebelum lanjut.</div><button class="btn" onclick="tutupAlert()" style="background: var(--maroon); border-radius: 12px; font-size: 14px; letter-spacing: 1px;">SAYA MENGERTI</button>';
-        alertModal.style.display = 'block';
+    function getFingerprint() {
+      let fp = localStorage.getItem("kukami_fp");
+      if(!fp) { fp = "ID-" + Math.random().toString(36).substring(2, 11).toUpperCase(); localStorage.setItem("kukami_fp", fp); }
+      return fp;
+    }
+
+    function logout() {
+      if(confirm("Keluar dari aplikasi Qasirku?")) {
+        localStorage.clear(); RIDER_INFO = null; CART = []; isRiwayatLoaded = false;
+        document.getElementById('app-content').style.display = 'none';
+        document.getElementById('p-login').style.display = 'block';
+        document.getElementById('user').value = ""; document.getElementById('pin').value = "";
       }
     }
 
-    function tutupAlert() { document.getElementById('m-alert').style.display = 'none'; }
-    function updateRank(id, val, tipe) { var el = document.getElementById(id); if (!el) return; if (!val || val == 0 || val == "") { el.innerHTML = ''; return; } var warna = (val <= 10) ? (tipe === 'hari' ? 'bg-rank-hari-top' : 'bg-rank-bulan-top') : 'bg-rank-grey'; el.innerHTML = '<span class="rank-badge ' + warna + '">#' + val + '</span>'; }
-
-    // ==========================================
-    // MESIN PWA & TOMBOL INSTALL
-    // ==========================================
-    let deferredPrompt;
-    
-    // Mendaftarkan Service Worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('Service Worker Registered'))
-          .catch(err => console.log('Service Worker Error', err));
-      });
-    }
-
-    // Menangkap Trigger Install dari HP
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault(); // Cegah banner default bawaan Chrome
-      deferredPrompt = e; // Simpan event-nya
-      
-      // Munculkan tombol Emas "INSTALL APLIKASI" di halaman login
-      var installBox = document.getElementById('install-container');
-      if(installBox) installBox.style.display = 'block';
-    });
-
-    // Aksi saat Tombol Install di-klik
-    var btnInstall = document.getElementById('btn-install');
-    if (btnInstall) {
-      btnInstall.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt(); // Munculkan pop-up install native
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            document.getElementById('install-container').style.display = 'none';
-          }
-          deferredPrompt = null;
-        }
-      });
-    }
-
-    // Hilangkan tombol jika aplikasi sukses diinstall
-    window.addEventListener('appinstalled', () => {
-      var installBox = document.getElementById('install-container');
-      if(installBox) installBox.style.display = 'none';
-      toast("✅ Aplikasi berhasil diinstall!");
-    });
-
-    function bukaRaportLangsung() {
-  // Mengambil data terbaru dari server agar angka NET selalu akurat
-  showLoading(true);
-  KUKAMI_API("getDashboardData", { id: curRider.id })
-    .then(function(res) {
-      showLoading(false);
-      if (res) {
-        tampilkanRaport(res);
-      }
-    })
-    .catch(function(err) {
-      showLoading(false);
-      toast("⚠️ Gagal memuat data rapor.");
-    });
-}
-    
-    function tampilkanRaport(response) {
-  var s = response.stats;
-
-  // --- SUNTIK DATA HARI INI ---
-  document.getElementById('rap-h-tot').innerText = s.hari.total;
-  document.getElementById('rap-h-rtot').innerText = s.hari.rank_tot;
-  document.getElementById('rap-h-on').innerText = s.hari.on;
-  document.getElementById('rap-h-ron').innerText = s.hari.rank_on;
-  document.getElementById('rap-h-off').innerText = s.hari.off;
-  document.getElementById('rap-h-roff').innerText = s.hari.rank_off;
-  document.getElementById('rap-h-net').innerText = "Rp " + s.hari.net.toLocaleString('id-ID');
-
-  // --- SUNTIK DATA BULAN INI ---
-  document.getElementById('rap-b-tot').innerText = s.bulan.total;
-  document.getElementById('rap-b-rtot').innerText = s.bulan.rank_tot;
-  document.getElementById('rap-b-on').innerText = s.bulan.on;
-  document.getElementById('rap-b-ron').innerText = s.bulan.rank_on;
-  document.getElementById('rap-b-off').innerText = s.bulan.off;
-  document.getElementById('rap-b-roff').innerText = s.bulan.rank_off;
-  document.getElementById('rap-b-net').innerText = "Rp " + s.bulan.net.toLocaleString('id-ID');
-
-  // Munculkan Modal
-  document.getElementById('raportModal').style.display = 'block';
-}
-
-function kirimWaKeAldo(data) {
-  // Ganti dengan data asli sesuai variabel di sistem Anda
-  const noWaAldo = "6289630042391"; 
-  const linkApprove = "https://script.google.com/macros/s/AKfycbyEkyDlxRn70bnji5TWeYG0GmLVb-MG_JITCHxZMEn4fISlQowYnbjSSUyflLovjM6BXA/exec?action=approve&invoice=" + data.nota + "&fp=" + localStorage.getItem("kukami_fp");
-
-  const pesan = `*REQUEST TOP UP KUKAMI*%0A%0A` +
-                `Nama: *${curRider.nama}*%0A` +
-                `ID Rider: *${curRider.id}*%0A` +
-                `Nominal: *Rp ${Number(data.nominal).toLocaleString()}*%0A` +
-                `Invoice: *${data.nota}*%0A%0A` +
-                `Dibawah ini lampiran bukti transfernya%0A` +
-                `${linkApprove}`;
-
-  // Langsung buka WhatsApp
-  window.open("https://wa.me/" + noWaAldo + "?text=" + pesan, '_blank');
-}
-    
+    function initPWA() { if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js'); } }
   </script>
-
-  <div id="raportModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999;">
-  <div style="background:#800000; color:#fff; margin:15% auto; padding:20px; width:85%; border:2px solid #FFD700; border-radius:15px; max-height: 80vh; overflow-y: auto; font-family: 'Inter', sans-serif;">
-    
-    <h3 style="margin-top:0; color:#FFD700; text-align:center; border-bottom: 1px dashed #FFD700; padding-bottom: 10px; font-weight: 900;">📊 RAPORT RIDER</h3>
-
-    <div style="text-align:left; margin-top:15px;">
-      <h4 style="color:#FFD700; margin-bottom:8px; font-size:14px;">📅 PERFORMA HARI INI</h4>
-      <div style="background:#fff; color:#333; padding:12px; border-radius:8px; font-size:12px; line-height:1.8;">
-        <div style="display:flex; justify-content:space-between;"><span>• Total Trx</span> <b><span id="rap-h-tot">0</span> Trip <span style="color:#800000">(Rank #<span id="rap-h-rtot">-</span>)</span></b></div>
-        <div style="display:flex; justify-content:space-between;"><span>• Trx Online</span> <b><span id="rap-h-on">0</span> Trip <span style="color:#800000">(Rank #<span id="rap-h-ron">-</span>)</span></b></div>
-        <div style="display:flex; justify-content:space-between;"><span>• Trx Offline</span> <b><span id="rap-h-off">0</span> Trip <span style="color:#800000">(Rank #<span id="rap-h-roff">-</span>)</span></b></div>
-        <hr style="border:0.5px dashed #ccc; margin:8px 0;">
-        <div style="display:flex; justify-content:space-between; font-size:14px;"><span>• <b>Pendapatan Bersih (NET)</b></span> <b style="color:#28a745;" id="rap-h-net">Rp 0</b></div>
-      </div>
-    </div>
-
-    <div style="text-align:left; margin-top:20px;">
-      <h4 style="color:#FFD700; margin-bottom:8px; font-size:14px;">🗓️ PERFORMA BULAN INI</h4>
-      <div style="background:#fff; color:#333; padding:12px; border-radius:8px; font-size:12px; line-height:1.8;">
-        <div style="display:flex; justify-content:space-between;"><span>• Total Trx</span> <b><span id="rap-b-tot">0</span> Trip <span style="color:#800000">(Rank #<span id="rap-b-rtot">-</span>)</span></b></div>
-        <div style="display:flex; justify-content:space-between;"><span>• Trx Online</span> <b><span id="rap-b-on">0</span> Trip <span style="color:#800000">(Rank #<span id="rap-b-ron">-</span>)</span></b></div>
-        <div style="display:flex; justify-content:space-between;"><span>• Trx Offline</span> <b><span id="rap-b-off">0</span> Trip <span style="color:#800000">(Rank #<span id="rap-b-roff">-</span>)</span></b></div>
-        <hr style="border:0.5px dashed #ccc; margin:8px 0;">
-        <div style="display:flex; justify-content:space-between; font-size:14px;"><span>• <b>Pendapatan Bersih (NET)</b></span> <b style="color:#28a745;" id="rap-b-net">Rp 0</b></div>
-      </div>
-    </div>
-
-    <button onclick="document.getElementById('raportModal').style.display='none'" style="background:#FFD700; color:#800000; border:none; width:100%; padding:14px; border-radius:50px; font-weight:900; margin-top:20px; font-size:14px; cursor:pointer;">[ TUTUP RAPORT ]</button>
-  </div>
-</div>
-  
 </body>
 </html>
